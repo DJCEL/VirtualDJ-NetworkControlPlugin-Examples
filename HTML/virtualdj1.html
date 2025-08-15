@@ -58,13 +58,13 @@
             background-color: #009acd;
         }
 
-        .iframe {
+        .result {
             width: auto;
             height: 40px;
             border-radius: 5px;
             border: 1px solid #444;
-            background-color: #1a1a1a;
-            color: #fff;
+            background-color: rgb(220, 220, 220);
+            color: black;
             font-family: monospace;
             font-size: 1em;
         }
@@ -93,7 +93,7 @@
             <input type="submit" value="Execute">
         </form>
         <br />
-        <iframe class="iframe" name="targetExecute" id="resultExecute"></iframe>
+        <iframe class="result" name="targetExecute" id="resultExecute"></iframe>
 
         <h2>GET /query?script=</h2>
         <form action="http://localhost:80/query" method="get" target="targetQuery">
@@ -101,7 +101,10 @@
             <input type="submit" value="Query">
         </form>
         <br />
-        <iframe class="iframe" name="targetQuery" id="resultQuery"></iframe>
-        </div>
+        <iframe class="result" name="targetQuery" id="resultQuery"></iframe>
+    </div>
+    <script>
+       
+    </script>
 </body>
 </html>
