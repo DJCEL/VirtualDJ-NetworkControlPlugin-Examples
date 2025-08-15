@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>VirtualDJ - Network Control</title>
@@ -42,31 +42,40 @@
 <body>
     <div class="container">
         <h1>VirtualDJ - Network Control plugin</h1>
-        <input type="text" id="script" placeholder="Entrez votre vdjscript..." required>
+        <input type="text" id="host" placeholder="Write your host here" value="http://localhost:80/" required>
+        <input type="text" id="script" placeholder="Write your vdjscript here" required>
         <button onclick="sendRequest('query')">Query</button>
         <button onclick="sendRequest('execute')">Execute</button>
 
-        <div class="result" id="result">Résultat affiché ici...</div>
+        <div class="result" id="result">Result displayed here...</div>
     </div>
 
     <script>
         async function sendRequest(type) {
-            const scriptValue = document.getElementById('script').value.trim();
-            if (!scriptValue) {
-                alert("Veuillez entrer un script.");
+            const hostValue = document.getElementById('host').value.trim();
+            if (!hostValue) {
+                alert("Please enter the URL (by default: http://127.0.0.1/:80/).");
                 return;
             }
 
+            const scriptValue = document.getElementById('script').value.trim();
+            if (!scriptValue) {
+                alert("Please enter a vdjscript.");
+                return;
+            }
+
+            const url = `http://localhost:80/${type}?script=${encodeURIComponent(scriptValue)}`
+
             try {
-                const url = `http://localhost:80/${type}?script=${encodeURIComponent(scriptValue)}`
                 const response = await fetch(url);
+                alert(response)
                 const text = await response.text();
+                alert(text)
                 document.getElementById('result').textContent = text;
             } catch (error) {
-                document.getElementById('result').textContent = "Erreur : " + error;
+                document.getElementById('result').textContent = "Error : " + error;
             }
         }
     </script>
 </body>
 </html>
-
