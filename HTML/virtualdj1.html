@@ -7,19 +7,24 @@
 <body>
     <div id="vdj" class="virtualdj">
         <h1>VirtualDJ - Network Control plugin</h1>
-        <h1>GET /query?script=</h1>
-        <form action="http://localhost:80/query" method="get" target="resultFrame">
-            <input type="text" name="script" placeholder="get_vdjscript" id="script" required>
-            <input type="submit" value="Query">
-        </form>
+        <h2>HOST</h2>
+        http://localhost:80
         <br />
-        <h1>GET /execute?script=</h1>
-        <form action="http://localhost:80/execute" method="get" target="resultFrame">
+        <h2>GET /execute?script=</h2>
+        <form action="http://localhost:80/execute" method="get" target="resultExecute">
             <input type="text" name="script" placeholder="vdjscript" id="script" required>
             <input type="submit" value="Execute">
         </form>
         <br />
-        <iframe name="resultFrame" style="width:auto;height:40px;"></iframe>
+        <iframe name="resultExecute" id="result1" style="width:auto;height:40px;"></iframe>
+        <br />
+        <h2>GET /query?script=</h2>
+        <form action="http://localhost:80/query" method="get" target="resultQuery">
+            <input type="text" name="script" placeholder="get_vdjscript" id="script" required>
+            <input type="submit" value="Query">
+        </form>
+        <br />
+        <iframe name="resultQuery" id="result2" style="width:auto;height:40px;"></iframe>
     </div>
 </body>
 </html>
