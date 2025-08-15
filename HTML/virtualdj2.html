@@ -68,9 +68,7 @@
 
             try {
                 const response = await fetch(url);
-                alert(response)
                 const text = await response.text();
-                alert(text)
                 document.getElementById('result').textContent = text;
             } catch (error) {
                 document.getElementById('result').textContent = "Error : " + error;
