@@ -58,7 +58,8 @@
             }
 
             try {
-                const response = await fetch(`http://localhost:80/${type}?script=${encodeURIComponent(scriptValue)}`);
+                const url = `http://localhost:80/${type}?script=${encodeURIComponent(scriptValue)}`
+                const response = await fetch(url);
                 const text = await response.text();
                 document.getElementById('result').textContent = text;
             } catch (error) {
@@ -68,3 +69,4 @@
     </script>
 </body>
 </html>
+
