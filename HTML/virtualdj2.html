@@ -42,11 +42,12 @@
 <body>
     <div class="container">
         <h1>VirtualDJ - Network Control plugin</h1>
-        <input type="text" id="host" placeholder="Write your host here" value="http://localhost:80/" required>
+        <input type="text" id="host" placeholder="Write your host here" value="http://127.0.0.1:80" required>
         <input type="text" id="script" placeholder="Write your vdjscript here" required>
         <button onclick="sendRequest('query')">Query</button>
         <button onclick="sendRequest('execute')">Execute</button>
 
+        <div class="result" id="url">URL displayed here...</div>
         <div class="result" id="result">Result displayed here...</div>
     </div>
 
@@ -54,7 +55,7 @@
         async function sendRequest(type) {
             const hostValue = document.getElementById('host').value.trim();
             if (!hostValue) {
-                alert("Please enter the URL (by default: http://127.0.0.1/:80/).");
+                alert("Please enter the URL (by default: http://127.0.0.1:80).");
                 return;
             }
 
@@ -64,7 +65,8 @@
                 return;
             }
 
-            const url = `http://localhost:80/${type}?script=${encodeURIComponent(scriptValue)}`
+            const url = `${hostValue}/${type}?script=${encodeURIComponent(scriptValue)}`
+            document.getElementById('url').textContent = url;
 
             try {
                 const response = await fetch(url);
