@@ -33,17 +33,8 @@
             margin-bottom: 10px;
         }
 
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            font-size: 1em;
-        }
-
         input[type="submit"] {
-            width: 100%;
+            width: auto;
             padding: 10px;
             background-color: #00bfff;
             color: #fff;
@@ -89,7 +80,9 @@
 
         <h2>GET /execute?script=</h2>
         <form action="http://localhost:80/execute" method="get" target="targetExecute">
-            <input type="text" name="script" placeholder="vdjscript" id="executeScript" required>
+            <select name="script" id="executeScript" required>
+                <option value="" disabled selected>Please select a vdjscript</option>
+            </select>
             <input type="submit" value="Execute">
         </form>
         <br />
@@ -97,14 +90,32 @@
 
         <h2>GET /query?script=</h2>
         <form action="http://localhost:80/query" method="get" target="targetQuery">
-            <input type="text" name="script" placeholder="get_vdjscript" id="queryScript" required>
+            <select name="script" id="queryScript" required>
+                <option value="" disabled selected>Please select a vdjscript</option>
+            </select>
             <input type="submit" value="Query">
         </form>
         <br />
         <iframe class="result" name="targetQuery" id="resultQuery"></iframe>
     </div>
     <script>
-       
+        const executeCommands = ["play", "pause", "stop", "cue","loop"];
+        const queryCommands = ["get_clock", "play", "pause", "stop", "cue", "loop"];
+
+        function populateSelect(id, values) {
+            const select = document.getElementById(id);
+            values.forEach(val => {
+                const option = document.createElement("option");
+                option.value = val;
+                option.textContent = val;
+                select.appendChild(option);
+            });
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            populateSelect("executeScript", executeCommands);
+            populateSelect("queryScript", queryCommands);
+        });
     </script>
 </body>
 </html>
