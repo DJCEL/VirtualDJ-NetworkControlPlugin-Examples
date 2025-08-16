@@ -236,7 +236,6 @@
             resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscriptDeck}`
         }
 
-
         crossfader.oninput = function () {
             const vdjscriptLevel = this.value / 100;
             const vdjscript = `crossfader ${vdjscriptLevel.toFixed(2)}`;
