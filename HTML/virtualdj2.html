@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VirtualDJ - Network Control plugin - Example</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e1e;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #2c2c2c;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #00bfff;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #00ffff;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            width: auto;
+            padding: 10px;
+            background-color: #00bfff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #009acd;
+            }
+
+        .result {
+            width: auto;
+            height: 40px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: rgb(220, 220, 220);
+            color: black;
+            font-family: monospace;
+            font-size: 1em;
+        }
+
+        .host {
+            background-color: #1a1a1a;
+            padding: 8px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+        }
+
+        .vdjscriptlist_action-bar {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .vdjscriptlist_action-bar input {
+            flex: 1;
+            padding: 6px;
+            border: none;
+            border-radius: 4px;
+            background: #222;
+            color: #eee;
+        }
+
+        .container2 {
+            display: flex;
+            gap: 10px;
+            background: #3b3b3b;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .vdjscriptlist_column {
+            flex: 1;
+            background: #2f2f2f;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-y: auto;
+        }
+
+            .column h3 {
+                margin-top: 0;
+                font-size: 14px;
+                color: #aaa;
+            }
+
+        .vdjscriptlist_description {
+            white-space: pre-line;
+            font-size: 13px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 6px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+            li:hover {
+                background: #444;
+            }
+
+            li.active {
+                background: #666;
+            }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>VirtualDJ - Network Control plugin</h1>
+        <div>
+            <a href=https://virtualdj.com/wiki/NetworkControlPlugin.html>Network Control Plugin</a>
+        </div>
+
+        <h2>HOST</h2>
+        <div class="host">
+            http://127.0.0.1:80
+        </div>
+
+        <h2>GET /execute?script=</h2>
+        <form action="http://127.0.0.1:80/execute" method="get" target="targetExecute">
+            <input type="text" name="script" placeholder="VDJscript" id="executeScript" required>
+            <input type="submit" value="Execute">
+        </form>
+        <br />
+        <iframe class="result" name="targetExecute" id="resultExecute"></iframe>
+
+        <h2>GET /query?script=</h2>
+        <form action="http://127.0.0.1:80/query" method="get" target="targetQuery">
+            <input type="text" name="script" placeholder="VDJscript" id="queryScript" required>
+            <input type="submit" value="Query">
+        </form>
+        <br />
+        <iframe class="result" name="targetQuery" id="resultQuery"></iframe>
+        <br />
+        <br />
+        <hr />
+        <h2>VDJscript - List of verbs</h2>
+        <div class="vdjscriptlist_action-bar">
+            <label for="action">Action :</label>
+            <input type="text" id="action" readonly>
+        </div>
+
+        <div class="container2">
+            <div class="vdjscriptlist_column">
+                <h3>Category</h3>
+                <ul id="vdjscriptlist_category"></ul>
+            </div>
+
+            <div class="vdjscriptlist_column">
+                <h3>Action</h3>
+                <ul id="vdjscriptlist_action"></ul>
+            </div>
+
+            <div class="vdjscriptlist_column">
+                <h3>Description</h3>
+                <div class="vdjscriptlist_description" id="vdjscriptlist_description">Select an action to see its description.</div>
+            </div>
+        </div>
+        <br />
+
+        <br />
+        <div>
+            <a href=https://www.virtualdj.com/manuals/virtualdj/appendix/vdjscriptverbs.html>VDJscript List of verbs</a>
+            <br />
+            <a href=https://www.virtualdj.com/wiki/VDJscript.html>VDJscript documentation</a>
+        </div>
+    </div>
+    <script>
+        // Data structure: categories → actions → descriptions
+        const data = {
+            "flow": {
+                "doubleclick": "Performs a double click.",
+                "holding": "Holds the key down until released.",
+            },
+            "repeat": {
+                "repeat": "Repeat the actions every x ms as long as the key is pressed.",
+                "repeat_start": "Start repeating with a delay.",
+                "repeat_start_instant": "Start repeating immediately.",
+                "repeat_stop": "Stops repeating.",
+                "wait": "Wait for x ms before continuing."
+            },
+            "system": {
+                "reboot": "Restart the system.",
+                "shutdown": "Turn off the system."
+            },
+            "window": {
+                "maximize": "Maximize the current window.",
+                "minimize": "Minimize the current window."
+            }
+        };
+
+        const categoryList = document.getElementById("vdjscriptlist_category");
+        const actionList = document.getElementById("vdjscriptlist_action");
+        const descriptionBox = document.getElementById("vdjscriptlist_description");
+        const actionInput = document.getElementById("action");
+
+        // Load categories
+        Object.keys(data).forEach(cat => {
+            const li = document.createElement("li");
+            li.textContent = cat;
+            li.addEventListener("click", () => selectCategory(cat, li));
+            categoryList.appendChild(li);
+        });
+
+        function selectCategory(category, element) {
+            // Highlight selected category
+            [...categoryList.children].forEach(li => li.classList.remove("active"));
+            element.classList.add("active");
+
+            // Clear action + description
+            actionList.innerHTML = "";
+            descriptionBox.textContent = "Select an action to see its description.";
+            actionInput.value = "";
+
+            // Load actions for this category
+            Object.keys(data[category]).forEach(act => {
+                const li = document.createElement("li");
+                li.textContent = act;
+                li.addEventListener("click", () => selectAction(category, act, li));
+                actionList.appendChild(li);
+            });
+        }
+
+        function selectAction(category, action, element) {
+            // Highlight selected action
+            [...actionList.children].forEach(li => li.classList.remove("active"));
+            element.classList.add("active");
+
+            // Update description + input
+            descriptionBox.textContent = data[category][action];
+            actionInput.value = action;
+        }
+    </script>
+</body>
+</html>
