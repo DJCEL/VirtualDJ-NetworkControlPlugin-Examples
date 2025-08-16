@@ -1,4 +1,4 @@
-const vdjscript_list_data =
+const vdjscript_list =
 {
   "VdjBuild": "8709",
   "Items":
