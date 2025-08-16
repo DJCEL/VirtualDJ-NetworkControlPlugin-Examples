@@ -250,17 +250,6 @@
             document.getElementById('resultExecute').src = request;
         }
 
-        function OnRefresh() {
-            OnQuery(`deck left get_artist`, "left_artist");
-            OnQuery(`deck right get_artist`, "right_artist");
-
-        }
-
-        function OnQuery(vdjscript, resId) {
-            const request = `${url_query}${vdjscript}`;
-            document.getElementById(resId).src = request;
-        }
-
         crossfader.oninput = function () {
             const vdjscriptLevel = this.value / 100;
             const vdjscript = `crossfader ${vdjscriptLevel.toFixed(2)}`;
@@ -277,6 +266,17 @@
             const vdjscriptLevel = this.value / 100;
             const vdjscript = `deck right level ${vdjscriptLevel.toFixed(2)}`;
             resExecute.src = `${url_execute}${vdjscript}`
+        }
+
+        function OnQuery(vdjscript, Id) {
+            const request = `${url_query}${vdjscript}`;
+            document.getElementById(Id).src = request;
+        }
+
+        function OnRefresh() {
+            OnQuery(`deck left get_artist`, "left_artist");
+            OnQuery(`deck right get_artist`, "right_artist");
+
         }
 
     </script>
