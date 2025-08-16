@@ -76,10 +76,6 @@
         <div>
             <a href=https://virtualdj.com/wiki/NetworkControlPlugin.html>Network Control Plugin</a>
         </div>
-        <br />
-        <select name="vdjscript" id="list_verbs" required>
-            <option value="" disabled selected>vdjscript: List of verbs</option>
-        </select>
 
         <h2>HOST</h2>
         <div class="host">
@@ -88,7 +84,7 @@
 
         <h2>GET /execute?script=</h2>
         <form action="http://127.0.0.1:80/execute" method="get" target="targetExecute">
-            <input type="text" name="script" placeholder="vdjscript" id="executeScript" required>
+            <input type="text" name="script" placeholder="VDJscript" id="executeScript" required>
             <input type="submit" value="Execute">
         </form>
         <br />
@@ -96,11 +92,19 @@
 
         <h2>GET /query?script=</h2>
         <form action="http://127.0.0.1:80/query" method="get" target="targetQuery">
-            <input type="text" name="script" placeholder="vdjscript" id="queryScript" required>
+            <input type="text" name="script" placeholder="VDJscript" id="queryScript" required>
             <input type="submit" value="Query">
         </form>
         <br />
         <iframe class="result" name="targetQuery" id="resultQuery"></iframe>
+
+        <br />
+        <br />
+        <h2>VDJscript - List of verbs</h2>
+        <select name="vdjscript" id="list_verbs" required>
+            <option value="" disabled selected>VDJscript: List of verbs</option>
+        </select>
+
     </div>
         <script>
             const executeGroups = {
