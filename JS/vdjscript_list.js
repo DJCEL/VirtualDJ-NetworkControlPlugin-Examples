@@ -806,7 +806,7 @@ const vdjscript_list =
             "effect_colorfx": "TODO",
             "effect_colorslider": "TODO",
             "effect_command": "TODO",
-            "effect_effect_dock_guidisable_all": "TODO",
+            "effect_disable_all": "TODO",
             "effect_dock_gui": "TODO",
             "effect_has_beats": "TODO",
             "effect_has_button": "TODO",
