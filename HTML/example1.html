@@ -50,7 +50,7 @@
                 background-color: #009acd;
             }
 
-        .result {
+        .virtualdj_result {
             width: auto;
             height: 40px;
             border-radius: 5px;
@@ -71,7 +71,7 @@
             border: 1px solid #444;
         }
 
-        .vdjscriptlist_action-bar {
+        .vdjscript_action-bar {
             width: 210px;
             margin-bottom: 10px;
             display: flex;
@@ -79,7 +79,7 @@
             align-items: center;
         }
 
-        .vdjscriptlist_action-bar input {
+        .vdjscript_action-bar input {
             flex: 1;
             width: 200px;
             padding: 6px;
@@ -89,8 +89,8 @@
             color: #eee;
         }
 
-        .container2 {
-            width : 800px;
+        .vdjscriptlist_container {
+            width: 800px;
             display: flex;
             gap: 10px;
             background: #3b3b3b;
@@ -159,7 +159,7 @@
             <input type="submit" value="Execute">
         </form>
         <br />
-        <iframe class="result" name="targetExecute" id="resultExecute"></iframe>
+        <iframe class="virtualdj_result" name="targetExecute" id="resultExecute"></iframe>
 
         <h2>GET /query?script=</h2>
         <form action="http://127.0.0.1:80/query" method="get" target="targetQuery">
@@ -167,7 +167,7 @@
             <input type="submit" value="Query">
         </form>
         <br />
-        <iframe class="result" name="targetQuery" id="resultQuery"></iframe>
+        <iframe class="virtualdj_result" name="targetQuery" id="resultQuery"></iframe>
         <br />
         <br />
         <hr />
@@ -178,12 +178,14 @@
             <a href=https://www.virtualdj.com/manuals/virtualdj/appendix/vdjscriptverbs.html target="_blank">VDJscript List of verbs</a>
         </div>
         <br />
-        <div class="vdjscriptlist_action-bar">
+        <label id="vdjbuildlabel">...</label>
+        <br />
+        <br />
+        <div class="vdjscript_action-bar">
             <label for="action">Action</label>
             <input type="text" id="action" readonly>
         </div>
-
-        <div class="container2">
+        <div class="vdjscriptlist_container">
             <div class="vdjscriptlist_column">
                 <h3>Category</h3>
                 <ul id="vdjscriptlist_category"></ul>
@@ -1076,16 +1078,15 @@
         };
 
         const vdjbuild = data_json["VdjBuild"];
-
-
-
-
         const data = data_json["Items"];
 
+        const vdjbuildLabel = document.getElementById("vdjbuildlabel");
         const categoryList = document.getElementById("vdjscriptlist_category");
         const actionList = document.getElementById("vdjscriptlist_action");
         const descriptionBox = document.getElementById("vdjscriptlist_description");
         const actionInput = document.getElementById("action");
+
+        vdjbuildLabel.textContent = "List based on VirtualDJ build " + vdjbuild + " :"
 
         // Load categories
         Object.keys(data).forEach(cat => {
