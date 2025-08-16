@@ -38,7 +38,8 @@
         }
 
         .vdj_skin {
-            max-width: 600px;
+            max-width: 1920px;
+            max-height: 1080px;
             margin: auto;
             display: flex;
             background-color: #2c2c2c;
@@ -46,22 +47,15 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             justify-content: space-between;
-            gap: 20px; /* space between columns */
+            gap: 10px;
             margin-bottom: 20px;
         }
 
-        .vdj_left_deck {
-            flex: 1;
-            max-width: 200px;
-            background-color: #3b3b3b;
-            padding: 10px;
-            border-radius: 6px;
-            overflow-y: auto;
-        }
-
+        .vdj_left_deck,
         .vdj_right_deck {
             flex: 1;
-            max-width: 200px;
+            max-width: 400px;
+            height: 300px;
             background-color: #3b3b3b;
             padding: 10px;
             border-radius: 6px;
@@ -70,47 +64,111 @@
 
         .vdj_mixer {
             flex: 1;
-            max-width: 200px;
+            display: flex;
+            max-width: 400px;
             background-color: #3b3b3b;
             padding: 10px;
             border-radius: 6px;
+            position: relative;
             overflow-y: auto;
         }
+
+        .vdj_left_mixer,
+        .vdj_right_mixer {
+            justify-content: center;
+            align-items: center;
+            width: auto;
+            height: 130px;
+            transform: translateY(+90%);
+        }
+
+        .vdj_bottom_mixer {
+            position: absolute;
+            justify-content: center;
+            align-items: center;
+            bottom: 10px;
+            left: 30%;
+            width: auto;
+        }
+
 
         .vdj_button {
             background-color: #00bfff;
             color: #fff;
         }
 
-        .vdj_slidercontainer {
-            width: 100%;
-        }
 
-        .vdj_slider {
+        .vdj_sliderV {
             -webkit-appearance: none;
             appearance: none;
-            width: 100%;
+            width: 160px;
             height: 20px;
             background: #d3d3d3;
             outline: none;
             opacity: 0.7;
-            -webkit-transition: .2s;
-            transition: opacity .2s;
+            transform: rotate(-90deg);
+            cursor: pointer;
         }
 
-            .vdj_slider:hover {
+            .vdj_sliderV:hover {
                 opacity: 1;
             }
 
-            .vdj_slider::-webkit-slider-thumb {
-                -webkit-appearance: none;
-                appearance: none;
-                width: 14px;
-                height: 20px;
-                background: #00bfff;
-                cursor: pointer;
+            .vdj_sliderV::-webkit-slider-runnable-track {
+                width: 100%;
+                height: 4px;
+                background: linear-gradient(to right, #444, #222);
+                border-radius: 3px;
+                box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
             }
 
+            .vdj_sliderV::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 20px;
+                height: 20px;
+                background: #00bfff;
+                border-radius: 4px;
+                border: 1px solid #0080aa;
+                transform: translateY(-8px);
+            }
+
+        
+        .vdj_sliderH {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 160px;
+            height: 20px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+            .vdj_sliderH:hover {
+                opacity: 1;
+            }
+
+            .vdj_sliderH::-webkit-slider-runnable-track {
+                width: 100%;
+                height: 4px;
+                background: linear-gradient(to right, #444, #222);
+                border-radius: 3px;
+                box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
+            }
+
+            .vdj_sliderH::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 20px;
+                height: 20px;
+                background: #00bfff;
+                border-radius: 4px;
+                border: 1px solid #0080aa;
+                transform: translateY(-8px);
+            }
+
+        
     </style>
 </head>
 <body>
@@ -131,11 +189,16 @@
             Mixer
             <br />
             <br />
-            <div class="vdj_slidercontainer">
-                <input type="range" min="1" max="100" value="50" class="vdj_slider" id="crossfader">
+            <div class="vdj_left_mixer">
+                    <input type="range" min="0" max="100" value="100" class="vdj_sliderV" id="leftlevel">
+            </div>
+            <div class="vdj_bottom_mixer">
+                    <input type="range" min="0" max="100" value="50" class="vdj_sliderH" id="crossfader">
+            </div>
+            <div class="vdj_right_mixer">
+                    <input type="range" min="0" max="100" value="100" class="vdj_sliderV" id="rightlevel">
             </div>
         </div>
-
         <div class="vdj_right_deck">
             Right Deck
             <br />
@@ -155,6 +218,8 @@
     <script>
         const resExecute = document.getElementById('resultExecute');
         var crossfader = document.getElementById("crossfader");
+        var leftlevel = document.getElementById("leftlevel");
+        var rightlevel = document.getElementById("rightlevel");
 
 
         function OnExecute(vdjscript) {
@@ -167,14 +232,26 @@
         }
 
         function OnExecuteRightDeck(vdjscript) {
-            const vdjscriptDeck = `right left ${vdjscript}`;
+            const vdjscriptDeck = `deck right ${vdjscript}`;
             resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscriptDeck}`
         }
 
-       
+
         crossfader.oninput = function () {
             const vdjscriptLevel = this.value / 100;
             const vdjscript = `crossfader ${vdjscriptLevel.toFixed(2)}`;
+            resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscript}`
+        }
+
+        leftlevel.oninput = function () {
+            const vdjscriptLevel = this.value / 100;
+            const vdjscript = `deck left level ${vdjscriptLevel.toFixed(2)}`;
+            resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscript}`
+        }
+
+        rightlevel.oninput = function () {
+            const vdjscriptLevel = this.value / 100;
+            const vdjscript = `deck right level ${vdjscriptLevel.toFixed(2)}`;
             resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscript}`
         }
 
