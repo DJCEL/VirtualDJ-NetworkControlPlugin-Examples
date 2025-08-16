@@ -81,6 +81,36 @@
             background-color: #00bfff;
             color: #fff;
         }
+
+        .vdj_slidercontainer {
+            width: 100%;
+        }
+
+        .vdj_slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 20px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+            .vdj_slider:hover {
+                opacity: 1;
+            }
+
+            .vdj_slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 14px;
+                height: 20px;
+                background: #00bfff;
+                cursor: pointer;
+            }
+
     </style>
 </head>
 <body>
@@ -101,6 +131,9 @@
             Mixer
             <br />
             <br />
+            <div class="vdj_slidercontainer">
+                <input type="range" min="1" max="100" value="50" class="vdj_slider" id="crossfader">
+            </div>
         </div>
 
         <div class="vdj_right_deck">
@@ -120,21 +153,29 @@
     </div>
 
     <script>
+        const resExecute = document.getElementById('resultExecute');
+        var crossfader = document.getElementById("crossfader");
+
+
         function OnExecute(vdjscript) {
-            const resExecute = document.getElementById('resultExecute');
             resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscript}`
         }
 
         function OnExecuteLeftDeck(vdjscript) {
-            const resExecute = document.getElementById('resultExecute');
             const vdjscriptDeck = `deck left ${vdjscript}`;
             resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscriptDeck}`
         }
 
         function OnExecuteRightDeck(vdjscript) {
-            const resExecute = document.getElementById('resultExecute');
             const vdjscriptDeck = `right left ${vdjscript}`;
             resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscriptDeck}`
+        }
+
+       
+        crossfader.oninput = function () {
+            const vdjscriptLevel = this.value / 100;
+            const vdjscript = `crossfader ${vdjscriptLevel.toFixed(2)}`;
+            resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscript}`
         }
 
     </script>
