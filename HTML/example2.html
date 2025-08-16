@@ -179,6 +179,9 @@
             Left Deck
             <br />
             <br />
+            <iframe class="vdj_result_text" id="left_artist"></iframe>
+            <br />
+            <br />
             <button class="vdj_button" onclick="OnExecuteLeftDeck('cue_button')">CUE</button>
             <button class="vdj_button" onclick="OnExecuteLeftDeck('play_button')">PLAY/PAUSE</button>
             <button class="vdj_button" onclick="OnExecuteLeftDeck('sync')">SYNC</button>
@@ -190,17 +193,20 @@
             <br />
             <br />
             <div class="vdj_left_mixer">
-                    <input type="range" min="0" max="100" value="100" class="vdj_sliderV" id="leftlevel">
+                <input type="range" min="0" max="100" value="100" class="vdj_sliderV" id="leftlevel">
             </div>
             <div class="vdj_bottom_mixer">
-                    <input type="range" min="0" max="100" value="50" class="vdj_sliderH" id="crossfader">
+                <input type="range" min="0" max="100" value="50" class="vdj_sliderH" id="crossfader">
             </div>
             <div class="vdj_right_mixer">
-                    <input type="range" min="0" max="100" value="100" class="vdj_sliderV" id="rightlevel">
+                <input type="range" min="0" max="100" value="100" class="vdj_sliderV" id="rightlevel">
             </div>
         </div>
         <div class="vdj_right_deck">
             Right Deck
+            <br />
+            <br />
+            <iframe class="vdj_result_text" id="right_artist"></iframe>
             <br />
             <br />
             <button class="vdj_button" onclick="OnExecuteRightDeck('cue_button')">CUE</button>
@@ -214,44 +220,63 @@
         VDJresult :
         <iframe class="vdj_result_text" name="targetExecute" id="resultExecute"></iframe>
     </div>
+    <br />
+    <div class="vdj_result">
+        Refresh Window for queries:
+        <button class="vdj_button" onclick="OnRefresh()">Refresh</button>
+    </div>
 
     <script>
-        const resExecute = document.getElementById('resultExecute');
         var crossfader = document.getElementById("crossfader");
         var leftlevel = document.getElementById("leftlevel");
         var rightlevel = document.getElementById("rightlevel");
-
+        const url_execute = `http://127.0.0.1:80/execute?script=`;
+        const url_query = `http://127.0.0.1:80/query?script=`;
 
         function OnExecute(vdjscript) {
-            resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscript}`
+            const request = `${url_execute}${vdjscript}`;
+            document.getElementById('resultExecute').src = request
         }
 
         function OnExecuteLeftDeck(vdjscript) {
             const vdjscriptDeck = `deck left ${vdjscript}`;
-            resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscriptDeck}`
+            const request = `${url_execute}${vdjscriptDeck}`;
+            document.getElementById('resultExecute').src = request;
         }
 
         function OnExecuteRightDeck(vdjscript) {
             const vdjscriptDeck = `deck right ${vdjscript}`;
-            resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscriptDeck}`
+            const request = `${url_execute}${vdjscriptDeck}`;
+            document.getElementById('resultExecute').src = request;
+        }
+
+        function OnRefresh() {
+            OnQuery(`deck left get_artist`, "left_artist");
+            OnQuery(`deck right get_artist`, "right_artist");
+
+        }
+
+        function OnQuery(vdjscript, resId) {
+            const request = `${url_query}${vdjscript}`;
+            document.getElementById(resId).src = request;
         }
 
         crossfader.oninput = function () {
             const vdjscriptLevel = this.value / 100;
             const vdjscript = `crossfader ${vdjscriptLevel.toFixed(2)}`;
-            resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscript}`
+            resExecute.src = `${url_execute}${vdjscript}`
         }
 
         leftlevel.oninput = function () {
             const vdjscriptLevel = this.value / 100;
             const vdjscript = `deck left level ${vdjscriptLevel.toFixed(2)}`;
-            resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscript}`
+            resExecute.src = `${url_execute}${vdjscript}`
         }
 
         rightlevel.oninput = function () {
             const vdjscriptLevel = this.value / 100;
             const vdjscript = `deck right level ${vdjscriptLevel.toFixed(2)}`;
-            resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscript}`
+            resExecute.src = `${url_execute}${vdjscript}`
         }
 
     </script>
