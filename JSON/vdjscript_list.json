@@ -1,6 +1,45 @@
 {
   "VdjBuild": "8709",
-  "Category":
+  "Categories":
+  [
+    "flow",
+    "param",
+    "repeat",
+    "skin",
+    "system",
+    "variables",
+    "window",
+    "audio",
+    "audio_controls",
+    "audio_inputs",
+    "audio_scratch",
+    "audio_volumes",
+    "automix",
+    "browser",
+    "config",
+    "controllers",
+    "cues",
+    "deck_select",
+    "equalizer",
+    "get",
+    "karaoke",
+    "key",
+    "loop",
+    "macro",
+    "pads",
+    "pitch",
+    "plugins",
+    "poi",
+    "prelisten",
+    "record",
+    "sampler",
+    "sandbox",
+    "sync",
+    "text",
+    "timecode",
+    "video"
+  ],
+  "Actions":
   {
     "flow":
     [
@@ -619,7 +658,20 @@
     "pitch":
     [
       "backspin",
-      "brakespeed"
+      "brakespeed",
+      "get_pitch",
+      "get_pitch_value",
+      "get_pitch_zero",
+      "master_tempo",
+      "pitch",
+      "pitch_bend",
+      "pitch_lock",
+      "pitch_motorized",
+      "pitch_range",
+      "pitch_relative",
+      "pitch_reset",
+      "pitch_zero",
+      "startupspeed"
     ],
     "plugins":
     [
