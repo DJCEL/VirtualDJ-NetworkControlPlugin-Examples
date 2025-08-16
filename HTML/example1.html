@@ -199,41 +199,34 @@
         <br />
     </div>
     <br />
-        <div class="container2">
-            <h2>VDJscript - Helper</h2>
-            <div>
-                <a href=https://www.virtualdj.com/wiki/VDJscript.html target="_blank">VDJscript documentation</a>
-                <br />
-                <a href=https://www.virtualdj.com/manuals/virtualdj/appendix/vdjscriptverbs.html target="_blank">VDJscript List of verbs</a>
-            </div>
+    <div class="container2">
+        <h2>VDJscript - Helper</h2>
+        <div>
+            <a href=https://www.virtualdj.com/wiki/VDJscript.html target="_blank">VDJscript documentation</a>
             <br />
-            <label id="vdjbuildlabel">...</label>
-            <br />
-            <br />
-            <div class="vdjscript_action-bar">
-                <label for="action">Action</label>
-                <input type="text" id="action" readonly>
-            </div>
-            <div class="vdjscriptlist_container">
-                <div class="vdjscriptlist_column">
-                    <h3>Category</h3>
-                    <ul id="vdjscriptlist_category"></ul>
-                </div>
-
-                <div class="vdjscriptlist_column">
-                    <h3>Action</h3>
-                    <ul id="vdjscriptlist_action"></ul>
-                </div>
-
-                <div class="vdjscriptlist_column">
-                    <h3>Description</h3>
-                    <div class="vdjscriptlist_description" id="vdjscriptlist_description">Select an action to see its description.</div>
-                </div>
-            </div>
-            <br />
-
-            <br />
+            <a href=https://www.virtualdj.com/manuals/virtualdj/appendix/vdjscriptverbs.html target="_blank">VDJscript List of verbs</a>
         </div>
+        <br />
+        <div class="vdjscript_action-bar">
+            <label for="action">Action</label>
+            <input type="text" id="action" readonly>
+        </div>
+        <div class="vdjscriptlist_container">
+            <div class="vdjscriptlist_column">
+                <h3>Category</h3>
+                <ul id="vdjscriptlist_category"></ul>
+            </div>
+            <div class="vdjscriptlist_column">
+                <h3>Action</h3>
+                <ul id="vdjscriptlist_action"></ul>
+            </div>
+            <div class="vdjscriptlist_column">
+                <h3>Description</h3>
+                <div class="vdjscriptlist_description" id="vdjscriptlist_description">Select an action to see its description.</div>
+            </div>
+        </div>
+        <label id="vdjbuildlabel">...</label>
+    </div>
         <script>
             const vdjbuild = vdjscript_list["VdjBuild"];
 
@@ -246,7 +239,7 @@
             const descriptionBox = document.getElementById("vdjscriptlist_description");
             const actionInput = document.getElementById("action");
 
-            vdjbuildLabel.textContent = "List of verbs based on VirtualDJ build " + vdjbuild + " :"
+            vdjbuildLabel.textContent = "List of verbs based on VirtualDJ build " + vdjbuild
 
             // Load categories
             Object.keys(data).forEach(cat => {
