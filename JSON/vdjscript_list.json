@@ -4,10 +4,10 @@
   {
     "flow":
     {
-      "down": "TODO",
-      "isrepeat": "TODO",
-      "nothing": "TODO",
-      "up": "TODO"
+      "down": "execute different actions depending if the key if pressed or released: 'down ? action1 : action2'",
+      "isrepeat": "execute different actions depending if the key is being repeated or if it's the first message (on Windows, keyboard shortcuts are usually auto-repeated while held down): 'isrepeat ? nothing : goto_cue')",
+      "nothing": "Do nothing.",
+      "up": "execute different actions depending if the key if pressed or released: 'up ? action1 : action2'"
     },
     "param":
     {
