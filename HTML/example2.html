@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VirtualDJ - Network Control plugin - Example2</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e1e;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+
+        h1 {
+            text-align: center;
+            color: #00bfff;
+            margin-bottom: 20px;
+        }
+
+        .vdj_result {
+            display: flex;
+            margin: auto;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vdj_result_text {
+            width: auto;
+            height: 40px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: rgb(200, 200, 200);
+            font-family: monospace;
+            font-size: 1em;
+        }
+
+        .vdj_skin {
+            max-width: 600px;
+            margin: auto;
+            display: flex;
+            background-color: #2c2c2c;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            justify-content: space-between;
+            gap: 20px; /* space between columns */
+            margin-bottom: 20px;
+        }
+
+        .vdj_left_deck {
+            flex: 1;
+            max-width: 200px;
+            background-color: #3b3b3b;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-y: auto;
+        }
+
+        .vdj_right_deck {
+            flex: 1;
+            max-width: 200px;
+            background-color: #3b3b3b;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-y: auto;
+        }
+
+        .vdj_mixer {
+            flex: 1;
+            max-width: 200px;
+            background-color: #3b3b3b;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-y: auto;
+        }
+
+        .vdj_button {
+            background-color: #00bfff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>VirtualDJ - Network Control plugin - Example2</h1>
+
+    <div class="vdj_skin">
+        <div class="vdj_left_deck">
+            Left Deck
+            <br />
+            <br />
+            <button class="vdj_button" onclick="OnExecuteLeftDeck('cue_button')">CUE</button>
+            <button class="vdj_button" onclick="OnExecuteLeftDeck('play_button')">PLAY/PAUSE</button>
+            <button class="vdj_button" onclick="OnExecuteLeftDeck('sync')">SYNC</button>
+            <button class="vdj_button" onclick="OnExecuteLeftDeck('stop')">STOP</button>
+            <button class="vdj_button" onclick="OnExecuteLeftDeck('unload')">UNLOAD</button>
+        </div>
+        <div class="vdj_mixer">
+            Mixer
+            <br />
+            <br />
+        </div>
+
+        <div class="vdj_right_deck">
+            Right Deck
+            <br />
+            <br />
+            <button class="vdj_button" onclick="OnExecuteRightDeck('cue_button')">CUE</button>
+            <button class="vdj_button" onclick="OnExecuteRightDeck('play_button')">PLAY/PAUSE</button>
+            <button class="vdj_button" onclick="OnExecuteRightDeck('sync')">SYNC</button>
+            <button class="vdj_button" onclick="OnExecuteRightDeck('stop')">STOP</button>
+            <button class="vdj_button" onclick="OnExecuteRightDeck('unload')">UNLOAD</button>
+        </div>
+    </div>
+    <div class="vdj_result">
+        VDJresult :
+        <iframe class="vdj_result_text" name="targetExecute" id="resultExecute"></iframe>
+    </div>
+
+    <script>
+        function OnExecute(vdjscript) {
+            const resExecute = document.getElementById('resultExecute');
+            resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscript}`
+        }
+
+        function OnExecuteLeftDeck(vdjscript) {
+            const resExecute = document.getElementById('resultExecute');
+            const vdjscriptDeck = `deck left ${vdjscript}`;
+            resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscriptDeck}`
+        }
+
+        function OnExecuteRightDeck(vdjscript) {
+            const resExecute = document.getElementById('resultExecute');
+            const vdjscriptDeck = `right left ${vdjscript}`;
+            resExecute.src = `http://127.0.0.1:80/execute?script=${vdjscriptDeck}`
+        }
+
+    </script>
+</body>
+</html>
