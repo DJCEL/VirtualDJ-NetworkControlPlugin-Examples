@@ -19,7 +19,7 @@
         }
 
         .container1 {
-            max-width: 600px;
+            max-width: 400px;
             margin: auto;
             background-color: #2c2c2c;
             padding: 20px;
@@ -243,23 +243,20 @@
         <label id="vdjbuildlabel">...</label>
     </div>
         <script>
-            const vdjbuild = vdjscript_list["VdjBuild"];
-
-            // <h3>Category</h3>
-
-            // Data structure: categories → actions → descriptions
-            const data = vdjscript_list["Items"];
-
             const vdjbuildLabel = document.getElementById("vdjbuildlabel");
             const categoryList = document.getElementById("vdjscriptlist_category");
             const actionList = document.getElementById("vdjscriptlist_action");
             const descriptionBox = document.getElementById("vdjscriptlist_description");
             const actionInput = document.getElementById("action");
 
+            const vdjbuild = vdjscript_list["VdjBuild"];
             vdjbuildLabel.textContent = "List of verbs based on VirtualDJ build " + vdjbuild
 
+            // vdj_data structure: category → action → description
+            const vdj_data = vdjscript_list["Items"];
+
             // Load categories
-            Object.keys(data).forEach(cat => {
+            Object.keys(vdj_data).forEach(cat => {
                 const li = document.createElement("li");
                 li.textContent = cat;
                 li.addEventListener("click", () => selectCategory(cat, li));
@@ -277,7 +274,7 @@
                 actionInput.value = "";
 
                 // Load actions for this category
-                Object.keys(data[category]).forEach(act => {
+                Object.keys(vdj_data[category]).forEach(act => {
                     const li = document.createElement("li");
                     li.textContent = act;
                     li.addEventListener("click", () => selectAction(category, act, li));
@@ -291,7 +288,7 @@
                 element.classList.add("active");
 
                 // Update description + input
-                descriptionBox.textContent = data[category][action];
+                descriptionBox.textContent = vdj_data[category][action];
                 actionInput.value = action;
             }
         </script>
