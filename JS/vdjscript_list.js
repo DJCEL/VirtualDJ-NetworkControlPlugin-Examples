@@ -15,13 +15,13 @@ const vdjscript_list =
             "blink": "turn on and off the LED, once per second.You can specify the speed: 'blink 1000ms' Speed can also be specified in number of beats: 'blink 1bt'.The time blinking can also be specified: 'blink 1bt 25%'",
             "color": "color 'red' color '#C08040' color 0.8 0.5 0.25 color 75% 'red' (returns a dimmed red) color 0.66 (returns a gray)",
             "color_mix": "Mix two colors based on an action in the third parameter color_mix white red `get_limiter`",
-            "constant": "Return the specified value Example: 'get constant 75%' always returns 75%\n\n[Alias: 'get_constant']",
+            "constant": "Return the specified value Example: 'get constant 75%' always returns 75%\n\n-----Alias-----\nget_constant",
             "dim": "equivalent of 'constant 0.1'",
             "fadeout": "'loop & fadeout 10000ms 3000ms' will return 100 % when loop is on, and fade out to 0% after 10 seconds in 3 seconds when loop turns off Alternatively, the action can be entered as the third parameter in backticks: 'fadeout 10000ms 3000ms `loop`'",
-            "false": "returns false\n\n[Alias: 'no' or 'off']",
+            "false": "returns false\n\n-----Alias-----\nno\noff",
             "param_1_x": "invert the value of the calling slider/encoder/button (calculate 1/x) 'param_1_x & effect slider'",
             "param_add": "add the given value to the value of the calling slider/ encoder / button add the value of the first parameter with the value of the second parameter.Both parameters can be actions instead of values: 'param_add `get_var a` `get_var b`'",
-            "param_bigger": "check if the value of the calling slider/encoder/button is bigger than something: 'param_bigger 0 ? sampler loop 200% : sampler loop 50%' compare value of the first parameter with the value of the second parameter. Both parameters can be actions instead of values: 'param_bigger pitch pitch_slider'\n\n[Alias: 'param_greater']",
+            "param_bigger": "check if the value of the calling slider/encoder/button is bigger than something: 'param_bigger 0 ? sampler loop 200% : sampler loop 50%' compare value of the first parameter with the value of the second parameter. Both parameters can be actions instead of values: 'param_bigger pitch pitch_slider'\n\n-----Alias-----\nparam_greater",
             "param_cast": "TODO",
             "param_contains": "TODO",
             "param_delta": "TODO",
@@ -37,7 +37,7 @@ const vdjscript_list =
             "param_ucfirst": "TODO",
             "param_uppercase": "TODO",
             "pulse": "TODO",
-            "true": "returns true\n\n[Alias: 'on' or 'yes']"
+            "true": "returns true\n\n-----Alias-----\non\nyes"
         },
         "repeat":
         {
