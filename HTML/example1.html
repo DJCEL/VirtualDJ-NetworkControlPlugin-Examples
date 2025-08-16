@@ -99,6 +99,8 @@
             display: flex;
             gap: 8px;
             align-items: center;
+            color: #aaa;
+            border-color: #587190;
         }
 
             .vdjscript_action-bar input {
@@ -123,43 +125,54 @@
 
         .vdjscriptlist_column {
             flex: 1;
-            background: #2f2f2f;
-            padding: 10px;
-            border-radius: 4px;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            max-height: 380px;
+            margin: 0 5px;
         }
 
             .vdjscriptlist_column h3 {
                 margin-top: 0;
                 font-size: 14px;
                 color: #aaa;
-                background: #2f2f2f;
+                padding-bottom: 0;
             }
+
+        .vdjscriptlist_column_data {
+            flex: 1;
+            margin-top: 0;
+            background: #1a1a1a;
+            padding: 4px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            overflow-y: auto;
+        }
+
+            .vdjscriptlist_column_data ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .vdjscriptlist_column_data li {
+                padding: 1px;
+                cursor: pointer;
+                border-radius: 4px;
+            }
+
+                .vdjscriptlist_column_data li:hover {
+                    background: #444;
+                }
+
+                .vdjscriptlist_column_data li.active {
+                    background: #587190;
+                }
 
         .vdjscriptlist_description {
             white-space: pre-line;
             font-size: 13px;
         }
 
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            padding: 6px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-            li:hover {
-                background: #444;
-            }
-
-            li.active {
-                background: #666;
-            }
     </style>
 </head>
 <body>
@@ -214,11 +227,11 @@
         <div class="vdjscriptlist_container">
             <div class="vdjscriptlist_column">
                 <h3>Category</h3>
-                <ul id="vdjscriptlist_category"></ul>
+                <ul class="vdjscriptlist_column_data" id="vdjscriptlist_category"></ul>
             </div>
             <div class="vdjscriptlist_column">
                 <h3>Action</h3>
-                <ul id="vdjscriptlist_action"></ul>
+                <ul class="vdjscriptlist_column_data" id="vdjscriptlist_action"></ul>
             </div>
             <div class="vdjscriptlist_column">
                 <h3>Description</h3>
@@ -229,6 +242,8 @@
     </div>
         <script>
             const vdjbuild = vdjscript_list["VdjBuild"];
+
+            // <h3>Category</h3>
 
             // Data structure: categories → actions → descriptions
             const data = vdjscript_list["Items"];
