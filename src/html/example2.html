@@ -182,11 +182,11 @@
             <iframe class="vdj_result_text" id="left_artist"></iframe>
             <br />
             <br />
-            <button class="vdj_button" onclick="OnExecuteLeftDeck('cue_button')">CUE</button>
-            <button class="vdj_button" onclick="OnExecuteLeftDeck('play_button')">PLAY/PAUSE</button>
-            <button class="vdj_button" onclick="OnExecuteLeftDeck('sync')">SYNC</button>
-            <button class="vdj_button" onclick="OnExecuteLeftDeck('stop')">STOP</button>
-            <button class="vdj_button" onclick="OnExecuteLeftDeck('unload')">UNLOAD</button>
+            <button class="vdj_button" onclick="OnExecuteButton('deck left cue_button')">CUE</button>
+            <button class="vdj_button" onclick="OnExecuteButton('deck left play_button')">PLAY/PAUSE</button>
+            <button class="vdj_button" onclick="OnExecuteButton('deck left sync')">SYNC</button>
+            <button class="vdj_button" onclick="OnExecuteButton('deck left stop')">STOP</button>
+            <button class="vdj_button" onclick="OnExecuteButton('deck left unload')">UNLOAD</button>
         </div>
         <div class="vdj_mixer">
             Mixer
@@ -209,11 +209,11 @@
             <iframe class="vdj_result_text" id="right_artist"></iframe>
             <br />
             <br />
-            <button class="vdj_button" onclick="OnExecuteRightDeck('cue_button')">CUE</button>
-            <button class="vdj_button" onclick="OnExecuteRightDeck('play_button')">PLAY/PAUSE</button>
-            <button class="vdj_button" onclick="OnExecuteRightDeck('sync')">SYNC</button>
-            <button class="vdj_button" onclick="OnExecuteRightDeck('stop')">STOP</button>
-            <button class="vdj_button" onclick="OnExecuteRightDeck('unload')">UNLOAD</button>
+            <button class="vdj_button" onclick="OnExecuteButton('deck right cue_button')">CUE</button>
+            <button class="vdj_button" onclick="OnExecuteButton('deck right play_button')">PLAY/PAUSE</button>
+            <button class="vdj_button" onclick="OnExecuteButton('deck right sync')">SYNC</button>
+            <button class="vdj_button" onclick="OnExecuteButton('deck right stop')">STOP</button>
+            <button class="vdj_button" onclick="OnExecuteButton('deck right unload')">UNLOAD</button>
         </div>
     </div>
     <div class="vdj_result">
@@ -250,41 +250,27 @@
             resExecute.src = request
         }
 
-        function OnExecuteLeftDeck(vdjscript) {
-            const vdjscriptDeck = `deck left ${vdjscript}`;
-            const request = `${url_execute}${vdjscriptDeck}`;
-            resExecute.src = request;
+        function OnExecuteButton(vdjscript) {
+            OnExecute(vdjscript)
         }
 
-        function OnExecuteRightDeck(vdjscript) {
-            const vdjscriptDeck = `deck right ${vdjscript}`;
-            const request = `${url_execute}${vdjscriptDeck}`;
-            resExecute.src = request;
+        function OnExecuteSlider(self, vdjscript) {
+            const vdjscriptLevel = self.value / 100;
+            const vdjscriptSlider = `${vdjscript} ${vdjscriptLevel.toFixed(2)}`;
+            OnExecute(vdjscriptSlider)
         }
 
         crossfader.oninput = function () {
-            const vdjscriptLevel = this.value / 100;
-            const vdjscript = `crossfader ${vdjscriptLevel.toFixed(2)}`;
-            const request = `${url_execute}${vdjscript}`;
-            resExecute.src = request;
+            OnExecuteSlider(this, 'crossfader')
         }
 
         leftlevel.oninput = function () {
-            const vdjscriptLevel = this.value / 100;
-            const vdjscript = `deck left level ${vdjscriptLevel.toFixed(2)}`;
-            const request = `${url_execute}${vdjscript}`;
-            resExecute.src = request;
+            OnExecuteSlider(this, 'deck left level');
         }
 
         rightlevel.oninput = function () {
-            const vdjscriptLevel = this.value / 100;
-            const vdjscript = `deck right level ${vdjscriptLevel.toFixed(2)}`;
-            const request = `${url_execute}${vdjscript}`;
-            resExecute.src = request;
+            OnExecuteSlider(this, 'deck right level');
         }
-
-        
-
     </script>
 </body>
 </html>
