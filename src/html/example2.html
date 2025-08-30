@@ -222,16 +222,15 @@
     </div>
 
     <script>
-        const url_execute = `http://127.0.0.1:80/execute?script=`;
-        const url_query = `http://127.0.0.1:80/query?script=`;
+        const url_virtualdj = `http://127.0.0.1:80`;
 
         function OnExecute(vdjscript) {
-            const request = `${url_execute}${vdjscript}`;
+            const request = `${url_virtualdj}/execute?script=${vdjscript}`;
             return request;
         }
 
         function OnQuery(vdjscript) {
-            const request = `${url_query}${vdjscript}`;
+            const request = `${url_virtualdj}/query?script=${vdjscript}`;
             return request;
         }
 
