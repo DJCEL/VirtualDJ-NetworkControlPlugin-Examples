@@ -179,7 +179,7 @@
             Left Deck
             <br />
             <br />
-            <iframe class="vdj_result_text" id="left_artist"></iframe>
+            <iframe class="vdj_result_text" id="left_artist" src="about:blank"></iframe>
             <br />
             <br />
             <button class="vdj_button" onclick="OnExecuteButton('deck left cue_button')">CUE</button>
@@ -206,7 +206,7 @@
             Right Deck
             <br />
             <br />
-            <iframe class="vdj_result_text" id="right_artist"></iframe>
+            <iframe class="vdj_result_text" id="right_artist" src="about:blank"></iframe>
             <br />
             <br />
             <button class="vdj_button" onclick="OnExecuteButton('deck right cue_button')">CUE</button>
@@ -220,41 +220,56 @@
         VDJresult :
         <iframe class="vdj_result_text" name="targetExecute" id="resultExecute"></iframe>
     </div>
-    <br />
-    <div class="vdj_result">
-        Refresh Window for queries:
-        <button class="vdj_button" onclick="OnRefresh()">Refresh</button>
-    </div>
 
     <script>
         const url_execute = `http://127.0.0.1:80/execute?script=`;
         const url_query = `http://127.0.0.1:80/query?script=`;
 
-        function OnQuery(vdjscript, Id) {
-            const request = `${url_query}${vdjscript}`;
-            document.getElementById(Id).src = request;
-        }
-
         function OnExecute(vdjscript) {
             const request = `${url_execute}${vdjscript}`;
+            return request;
+        }
+
+        function OnQuery(vdjscript) {
+            const request = `${url_query}${vdjscript}`;
+            return request;
+        }
+
+        function OnExecuteMain(vdjscript) {
+            const request = OnExecute(vdjscript);
             document.getElementById("resultExecute").src = request
         }
 
-        function OnRefresh() {
-            OnQuery(`deck left get_artist`, "left_artist");
-            OnQuery(`deck right get_artist`, "right_artist");
-
+        function OnQueryMain(Id, vdjscript) {
+            const request = OnQuery(vdjscript);
+            document.getElementById(Id).src = request;
         }
 
         function OnExecuteButton(vdjscript) {
-            OnExecute(vdjscript)
+            OnExecuteMain(vdjscript)
         }
 
-        function OnExecuteSlider(self,vdjscript) {
+        function OnExecuteSlider(self, vdjscript) {
             const vdjscriptLevel = self.value / 100;
             const vdjscriptSlider = `${vdjscript} ${vdjscriptLevel.toFixed(2)}`;
-            OnExecute(vdjscriptSlider)
+            OnExecuteMain(vdjscriptSlider)
         }
+
+        var myVar2 = setInterval(get_data_from_virtualdj, 500);
+
+        function OnQueryRefresh() {
+            OnQueryMain("left_artist", `deck left get_artist`);
+            OnQueryMain("right_artist", `deck right get_artist`);
+
+            //document.getElementById('left_artist').contentWindow.location.reload();
+            //document.getElementById('left_artist').src += '';
+        }
+
+        async function get_data_from_virtualdj() {
+            OnQueryRefresh();
+        }
+
+        get_data_from_virtualdj();
 
     </script>
 </body>
