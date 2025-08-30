@@ -193,13 +193,13 @@
             <br />
             <br />
             <div class="vdj_left_mixer">
-                <input type="range" min="0" max="100" value="100" class="vdj_sliderV" id="leftlevel">
+                <input type="range" min="0" max="100" value="100" class="vdj_sliderV" oninput="OnExecuteSlider(this,'deck left level')">
             </div>
             <div class="vdj_bottom_mixer">
-                <input type="range" min="0" max="100" value="50" class="vdj_sliderH" id="crossfader">
+                <input type="range" min="0" max="100" value="50" class="vdj_sliderH" oninput="OnExecuteSlider(this,'crossfader')">
             </div>
             <div class="vdj_right_mixer">
-                <input type="range" min="0" max="100" value="100" class="vdj_sliderV" id="rightlevel">
+                <input type="range" min="0" max="100" value="100" class="vdj_sliderV" oninput="OnExecuteSlider(this,'deck right level')">
             </div>
         </div>
         <div class="vdj_right_deck">
@@ -229,14 +229,15 @@
     <script>
         const url_execute = `http://127.0.0.1:80/execute?script=`;
         const url_query = `http://127.0.0.1:80/query?script=`;
-        const resExecute = document.getElementById("resultExecute");
-        var crossfader = document.getElementById("crossfader");
-        var leftlevel = document.getElementById("leftlevel");
-        var rightlevel = document.getElementById("rightlevel");
 
         function OnQuery(vdjscript, Id) {
             const request = `${url_query}${vdjscript}`;
             document.getElementById(Id).src = request;
+        }
+
+        function OnExecute(vdjscript) {
+            const request = `${url_execute}${vdjscript}`;
+            document.getElementById("resultExecute").src = request
         }
 
         function OnRefresh() {
@@ -245,32 +246,16 @@
 
         }
 
-        function OnExecute(vdjscript) {
-            const request = `${url_execute}${vdjscript}`;
-            resExecute.src = request
-        }
-
         function OnExecuteButton(vdjscript) {
             OnExecute(vdjscript)
         }
 
-        function OnExecuteSlider(self, vdjscript) {
+        function OnExecuteSlider(self,vdjscript) {
             const vdjscriptLevel = self.value / 100;
             const vdjscriptSlider = `${vdjscript} ${vdjscriptLevel.toFixed(2)}`;
             OnExecute(vdjscriptSlider)
         }
 
-        crossfader.oninput = function () {
-            OnExecuteSlider(this, 'crossfader')
-        }
-
-        leftlevel.oninput = function () {
-            OnExecuteSlider(this, 'deck left level');
-        }
-
-        rightlevel.oninput = function () {
-            OnExecuteSlider(this, 'deck right level');
-        }
     </script>
 </body>
 </html>
