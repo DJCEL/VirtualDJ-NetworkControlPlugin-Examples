@@ -10,5 +10,5 @@ Example 1:
 
 Example 2:
 
-
+![logo](https://github.com/djcel/VirtualDJ-NetworkControlPlugin-Examples/blob/main/Preview_example2b.png?raw=true "")
 
