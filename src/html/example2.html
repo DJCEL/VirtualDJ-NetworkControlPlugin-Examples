@@ -227,21 +227,22 @@
     </div>
 
     <script>
+        const url_execute = `http://127.0.0.1:80/execute?script=`;
+        const url_query = `http://127.0.0.1:80/query?script=`;
+        var resExecute = document.getElementById("resultExecute");
         var crossfader = document.getElementById("crossfader");
         var leftlevel = document.getElementById("leftlevel");
         var rightlevel = document.getElementById("rightlevel");
-        const url_execute = `http://127.0.0.1:80/execute?script=`;
-        const url_query = `http://127.0.0.1:80/query?script=`;
-
+       
         function OnExecute(vdjscript) {
             const request = `${url_execute}${vdjscript}`;
-            document.getElementById('resultExecute').src = request
+            resExecute.src = request
         }
 
         function OnExecuteLeftDeck(vdjscript) {
             const vdjscriptDeck = `deck left ${vdjscript}`;
             const request = `${url_execute}${vdjscriptDeck}`;
-            document.getElementById('resultExecute').src = request;
+            resExecute.src = request;
         }
 
         function OnExecuteRightDeck(vdjscript) {
