@@ -229,11 +229,22 @@
     <script>
         const url_execute = `http://127.0.0.1:80/execute?script=`;
         const url_query = `http://127.0.0.1:80/query?script=`;
-        var resExecute = document.getElementById("resultExecute");
+        const resExecute = document.getElementById("resultExecute");
         var crossfader = document.getElementById("crossfader");
         var leftlevel = document.getElementById("leftlevel");
         var rightlevel = document.getElementById("rightlevel");
-       
+
+        function OnQuery(vdjscript, Id) {
+            const request = `${url_query}${vdjscript}`;
+            document.getElementById(Id).src = request;
+        }
+
+        function OnRefresh() {
+            OnQuery(`deck left get_artist`, "left_artist");
+            OnQuery(`deck right get_artist`, "right_artist");
+
+        }
+
         function OnExecute(vdjscript) {
             const request = `${url_execute}${vdjscript}`;
             resExecute.src = request
@@ -248,37 +259,31 @@
         function OnExecuteRightDeck(vdjscript) {
             const vdjscriptDeck = `deck right ${vdjscript}`;
             const request = `${url_execute}${vdjscriptDeck}`;
-            document.getElementById('resultExecute').src = request;
+            resExecute.src = request;
         }
 
         crossfader.oninput = function () {
             const vdjscriptLevel = this.value / 100;
             const vdjscript = `crossfader ${vdjscriptLevel.toFixed(2)}`;
-            resExecute.src = `${url_execute}${vdjscript}`
+            const request = `${url_execute}${vdjscript}`;
+            resExecute.src = request;
         }
 
         leftlevel.oninput = function () {
             const vdjscriptLevel = this.value / 100;
             const vdjscript = `deck left level ${vdjscriptLevel.toFixed(2)}`;
-            resExecute.src = `${url_execute}${vdjscript}`
+            const request = `${url_execute}${vdjscript}`;
+            resExecute.src = request;
         }
 
         rightlevel.oninput = function () {
             const vdjscriptLevel = this.value / 100;
             const vdjscript = `deck right level ${vdjscriptLevel.toFixed(2)}`;
-            resExecute.src = `${url_execute}${vdjscript}`
+            const request = `${url_execute}${vdjscript}`;
+            resExecute.src = request;
         }
 
-        function OnQuery(vdjscript, Id) {
-            const request = `${url_query}${vdjscript}`;
-            document.getElementById(Id).src = request;
-        }
-
-        function OnRefresh() {
-            OnQuery(`deck left get_artist`, "left_artist");
-            OnQuery(`deck right get_artist`, "right_artist");
-
-        }
+        
 
     </script>
 </body>
