@@ -110,65 +110,67 @@
             width: auto;
         }
 
-
         .vdj_button {
-            background-color: #00bfff;
-            color: #fff;
+            position: relative;
+            display: inline-block;
+            color: #FFFFFF;
+            width: auto;
+            height: 38px;
+            cursor: pointer;
+            background: #171719;
+            text-align: center;
+            line-height: 38px;
+            text-decoration: none;
         }
+
+            .vdj_button:hover {
+                color: #FFFFFF;
+                text-decoration: none;
+                background: #444446;
+            }
+
+        .vdj_button_svg {
+            position: relative;
+            display: block;
+            width: 26px;
+            height: 30px;
+            cursor: pointer;
+            background: #171719;
+            fill: #FFFFFF;
+        }
+
+            .vdj_button_svg:hover {
+                color: #FFFFFF;
+                background: #444446;
+            }
+
 
         .vdj_buttonV {
-            background-color: #00bfff;
-            color: #fff;
+            position: relative;
             display: block; /* Makes buttons stack vertically */
+            color: #FFFFFF;
             width: auto;
-        }
-
-
-        .vdj_sliderV {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 160px;
-            height: 20px;
-            background: #d3d3d3;
-            outline: none;
-            opacity: 0.7;
-            transform: rotate(-90deg);
+            height: 38px;
             cursor: pointer;
+            background-color: #171719;
+            text-align: center;
+            line-height: 38px;
         }
-
-            .vdj_sliderV:hover {
-                opacity: 1;
+            .vdj_buttonV:hover {
+                color: #FFFFFF;
+                text-decoration: none;
+                background: #444446;
             }
-
-            .vdj_sliderV::-webkit-slider-runnable-track {
-                width: 100%;
-                height: 4px;
-                background: linear-gradient(to right, #444, #222);
-                border-radius: 3px;
-                box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
-            }
-
-            .vdj_sliderV::-webkit-slider-thumb {
-                -webkit-appearance: none;
-                appearance: none;
-                width: 20px;
-                height: 20px;
-                background: #00bfff;
-                border-radius: 4px;
-                border: 1px solid #0080aa;
-                transform: translateY(-8px);
-            }
-
 
         .vdj_sliderH {
             -webkit-appearance: none;
-            appearance: none;
             width: 160px;
             height: 20px;
-            background: #d3d3d3;
+            background: #3b3b3b;
             outline: none;
             opacity: 0.7;
-            cursor: pointer;
+            /*padding: 0 8px;*/
+            /*margin: 8px 0;*/
         }
 
             .vdj_sliderH:hover {
@@ -177,22 +179,59 @@
 
             .vdj_sliderH::-webkit-slider-runnable-track {
                 width: 100%;
-                height: 4px;
-                background: linear-gradient(to right, #444, #222);
+                height: 5px;
+                background: #000000;
                 border-radius: 3px;
-                box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
+                box-shadow: inset 0 1px 2px #000000;
             }
 
             .vdj_sliderH::-webkit-slider-thumb {
                 -webkit-appearance: none;
-                appearance: none;
-                width: 20px;
-                height: 20px;
-                background: #00bfff;
+                width: 15px;
+                height: 30px;
+                background: #FFFFFA;
                 border-radius: 4px;
-                border: 1px solid #0080aa;
+                border: 1px solid #171719;
                 transform: translateY(-8px);
+                margin-top: -4px;
+                cursor: pointer;
             }
+
+        .vdj_sliderV {
+            -webkit-appearance: none;
+            width: 160px;
+            height: 20px;
+            background: #3b3b3b;
+            outline: none;
+            opacity: 0.7;
+            transform: rotate(-90deg);
+        }
+
+            .vdj_sliderV:hover {
+                opacity: 1;
+            }
+
+            .vdj_sliderV::-webkit-slider-runnable-track {
+                width: 100%;
+                height: 5px;
+                background: #000000;
+                border-radius: 3px;
+                box-shadow: inset 0 1px 2px #000000;
+            }
+
+            .vdj_sliderV::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                width: 15px;
+                height: 30px;
+                background: #FFFFFA;
+                border-radius: 4px;
+                border: 1px solid #171719;
+                transform: translateY(-8px);
+                margin-top: -4px;
+                cursor: pointer;
+            }
+
+
 
         .vdj_result {
             display: flex;
@@ -213,6 +252,31 @@
     </style>
 </head>
 <body>
+    <svg style="display:none">
+        <defs>
+            <symbol id="svg_play">
+                <path d="M1,1 L1,14 L12,7.5 L1,1 Z"></path>
+            </symbol>
+            <symbol id="svg_pause">
+                <path d="M1,14 L3.5,14 L3.5,1 L1,1 Z M7.5,1 L7.5,14 L10,14 L10,1 Z"></path>
+            </symbol>
+            <symbol id="svg_minus">
+                <path d="M3.20001 8H12.8" stroke="#F3F3F3" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"></path>
+            </symbol>
+            <symbol id="svg_plus">
+                <path d="M8 3.19995V12.8" stroke="#F3F3F3" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"></path>
+                <path d="M3.20001 8H12.8" stroke="#F3F3F3" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"></path>
+            </symbol>
+            <symbol id="svg_up">
+                <path d="M 1 5 L 5 1 L 9 5" stroke="#F3F3F3" stroke-width="1.2"></path>
+            </symbol>
+            <symbol id="svg_down">
+                <path d="M 1 1 L 5 5 L 9 1" stroke="#F3F3F3" stroke-width="1.2"></path>
+            </symbol>
+        </defs>
+    </svg>
+
+
     <h1>VirtualDJ - Network Control plugin - Example2</h1>
 
     <div class="vdj_skin">
@@ -224,11 +288,17 @@
             <iframe class="vdj_result_text" id="left_artist" src="about:blank"></iframe>
             <br />
             <br />
-            <button class="vdj_button" onclick="OnExecuteButton('deck left cue_button')">CUE</button>
-            <button class="vdj_button" onclick="OnExecuteButton('deck left play_button')">PLAY/PAUSE</button>
-            <button class="vdj_button" onclick="OnExecuteButton('deck left sync')">SYNC</button>
-            <button class="vdj_button" onclick="OnExecuteButton('deck left stop')">STOP</button>
-            <button class="vdj_button" onclick="OnExecuteButton('deck left unload')">UNLOAD</button>
+            <button class="vdj_button" title="cue_button" onclick="OnExecuteButton('deck left cue_button')">Cue</button>
+            <button class="vdj_button" title="play_button" onclick="OnExecuteButton('deck left play_button')">Play/Pause</button>
+            <button class="vdj_button" title="sync" onclick="OnExecuteButton('deck left sync')">Sync</button>
+            <button class="vdj_button" title="stop" onclick="OnExecuteButton('deck left stop')">Stop</button>
+            <button class="vdj_button" title="unload" onclick="OnExecuteButton('deck left unload')">Unload</button>
+            <button class="vdj_button_svg" title="play" onclick="OnExecuteButton('deck left play')"><svg><use href="#svg_play"></use></svg></button>
+            <button class="vdj_button_svg" title="pause" onclick="OnExecuteButton('deck left pause')"><svg><use href="#svg_pause"></use></svg></button>
+            <button class="vdj_button_svg" title="pitch_bend -2% 500ms" onmousedown="OnExecuteButton('deck left pitch_bend -2% 500ms')"><svg><use href="#svg_minus"></use></svg></button>
+            <button class="vdj_button_svg" title="pitch_bend +2% 500ms" onmousedown="OnExecuteButton('deck left pitch_bend +2% 500ms')"><svg><use href="#svg_plus"></use></svg></button>
+            <button class="vdj_button_svg" title="loop_half" style="height:14px;" onclick="OnExecuteButton('deck left loop_half')"><svg><use href="#svg_up"></use></svg></button>
+            <button class="vdj_button_svg" title="loop_double" style="height:14px;" onclick="OnExecuteButton('deck left loop_double')"><svg><use href="#svg_down"></use></svg></button>
         </div>
         <div class="vdj_mixer">
             Mixer
@@ -252,11 +322,17 @@
             <iframe class="vdj_result_text" id="right_artist" src="about:blank"></iframe>
             <br />
             <br />
-            <button class="vdj_button" onclick="OnExecuteButton('deck right cue_button')">CUE</button>
-            <button class="vdj_button" onclick="OnExecuteButton('deck right play_button')">PLAY/PAUSE</button>
-            <button class="vdj_button" onclick="OnExecuteButton('deck right sync')">SYNC</button>
-            <button class="vdj_button" onclick="OnExecuteButton('deck right stop')">STOP</button>
-            <button class="vdj_button" onclick="OnExecuteButton('deck right unload')">UNLOAD</button>
+            <button class="vdj_button" title="cue_button" onclick="OnExecuteButton('deck right cue_button')">Cue</button>
+            <button class="vdj_button" title="play_button" onclick="OnExecuteButton('deck right play_button')">Play/Pause</button>
+            <button class="vdj_button" title="sync" onclick="OnExecuteButton('deck right sync')">Sync</button>
+            <button class="vdj_button" title="stop" onclick="OnExecuteButton('deck right stop')">Stop</button>
+            <button class="vdj_button" title="unload" onclick="OnExecuteButton('deck right unload')">Unload</button>
+            <button class="vdj_button_svg" title="play" onclick="OnExecuteButton('deck right play')"><svg><use href="#svg_play"></use></svg></button>
+            <button class="vdj_button_svg" title="pause" onclick="OnExecuteButton('deck right pause')"><svg><use href="#svg_pause"></use></svg></button>
+            <button class="vdj_button_svg" title="pitch_bend -2% 500ms" onmousedown="OnExecuteButton('deck right pitch_bend -2% 500ms')"><svg><use href="#svg_minus"></use></svg></button>
+            <button class="vdj_button_svg" title="pitch_bend +2% 500ms" onmousedown="OnExecuteButton('deck right pitch_bend +2% 500ms')"><svg><use href="#svg_plus"></use></svg></button>
+            <button class="vdj_button_svg" title="loop_half" style="height:14px;" onclick="OnExecuteButton('deck right loop_half')"><svg><use href="#svg_up"></use></svg></button>
+            <button class="vdj_button_svg" title="loop_double" style="height:14px;" onclick="OnExecuteButton('deck right loop_double')"><svg><use href="#svg_down"></use></svg></button>
         </div>
     </div>
 
@@ -299,10 +375,16 @@
     <div class="vdj_result">
         VDJresult :
         <iframe class="vdj_result_text" name="targetExecute" id="resultExecute"></iframe>
+        VDJbuild :
+        <iframe class="vdj_result_text" id="vdj_build" src="about:blank"></iframe>
     </div>
 
     <script>
         const url_virtualdj = `http://127.0.0.1:80`;
+
+        function DisplayMessage(msg) {
+            alert(msg);
+        }
 
         function OnExecute(vdjscript) {
             const request = `${url_virtualdj}/execute?script=${vdjscript}`;
@@ -328,13 +410,17 @@
             OnExecuteMain(vdjscript)
         }
 
+        function OnExecuteButtonDown(vdjscript) {
+            OnExecuteMain(vdjscript)
+        }
+
         function OnExecuteSlider(self, vdjscript) {
             const vdjscriptLevel = self.value / 100;
             const vdjscriptSlider = `${vdjscript} ${vdjscriptLevel.toFixed(2)}`;
             OnExecuteMain(vdjscriptSlider)
         }
 
-        var myVar2 = setInterval(get_data_from_virtualdj, 500);
+        var myVar2 = setInterval(get_data_from_virtualdj, 1000);
 
         function OnQueryRefresh() {
             OnQueryMain("left_title", 'deck left get_title_remix');
@@ -355,6 +441,8 @@
         }
 
         async function get_data_from_virtualdj() {
+            OnQueryMain("vdj_build", 'get_build');
+
             OnQueryRefresh();
         }
 
