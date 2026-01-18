@@ -295,8 +295,8 @@
             <button class="vdj_button" title="unload" onclick="OnExecuteButton('deck left unload')">Unload</button>
             <button class="vdj_button_svg" title="play" onclick="OnExecuteButton('deck left play')"><svg><use href="#svg_play"></use></svg></button>
             <button class="vdj_button_svg" title="pause" onclick="OnExecuteButton('deck left pause')"><svg><use href="#svg_pause"></use></svg></button>
-            <button class="vdj_button_svg" title="pitch_bend -2% 500ms" onmousedown="OnExecuteButton('deck left pitch_bend -2% 500ms')"><svg><use href="#svg_minus"></use></svg></button>
-            <button class="vdj_button_svg" title="pitch_bend +2% 500ms" onmousedown="OnExecuteButton('deck left pitch_bend +2% 500ms')"><svg><use href="#svg_plus"></use></svg></button>
+            <button class="vdj_button_svg" title="pitch_bend -2% 500ms" onmousedown="OnExecuteButtonDown('deck left pitch_bend -2% 500ms')"><svg><use href="#svg_minus"></use></svg></button>
+            <button class="vdj_button_svg" title="pitch_bend +2% 500ms" onmousedown="OnExecuteButtonDown('deck left pitch_bend +2% 500ms')"><svg><use href="#svg_plus"></use></svg></button>
             <button class="vdj_button_svg" title="loop_half" style="height:14px;" onclick="OnExecuteButton('deck left loop_half')"><svg><use href="#svg_up"></use></svg></button>
             <button class="vdj_button_svg" title="loop_double" style="height:14px;" onclick="OnExecuteButton('deck left loop_double')"><svg><use href="#svg_down"></use></svg></button>
         </div>
@@ -329,8 +329,8 @@
             <button class="vdj_button" title="unload" onclick="OnExecuteButton('deck right unload')">Unload</button>
             <button class="vdj_button_svg" title="play" onclick="OnExecuteButton('deck right play')"><svg><use href="#svg_play"></use></svg></button>
             <button class="vdj_button_svg" title="pause" onclick="OnExecuteButton('deck right pause')"><svg><use href="#svg_pause"></use></svg></button>
-            <button class="vdj_button_svg" title="pitch_bend -2% 500ms" onmousedown="OnExecuteButton('deck right pitch_bend -2% 500ms')"><svg><use href="#svg_minus"></use></svg></button>
-            <button class="vdj_button_svg" title="pitch_bend +2% 500ms" onmousedown="OnExecuteButton('deck right pitch_bend +2% 500ms')"><svg><use href="#svg_plus"></use></svg></button>
+            <button class="vdj_button_svg" title="pitch_bend -2% 500ms" onmousedown="OnExecuteButtonDown('deck right pitch_bend -2% 500ms')"><svg><use href="#svg_minus"></use></svg></button>
+            <button class="vdj_button_svg" title="pitch_bend +2% 500ms" onmousedown="OnExecuteButtonDown('deck right pitch_bend +2% 500ms')"><svg><use href="#svg_plus"></use></svg></button>
             <button class="vdj_button_svg" title="loop_half" style="height:14px;" onclick="OnExecuteButton('deck right loop_half')"><svg><use href="#svg_up"></use></svg></button>
             <button class="vdj_button_svg" title="loop_double" style="height:14px;" onclick="OnExecuteButton('deck right loop_double')"><svg><use href="#svg_down"></use></svg></button>
         </div>
@@ -423,6 +423,7 @@
         var myVar2 = setInterval(get_data_from_virtualdj, 1000);
 
         function OnQueryRefresh() {
+            OnQueryMain("vdj_build", 'get_build');
             OnQueryMain("left_title", 'deck left get_title_remix');
             OnQueryMain("left_artist", 'deck left get_artist');
             OnQueryMain("right_title", 'deck right get_title_remix');
@@ -432,17 +433,13 @@
             OnQueryMain("browser_folders_3", 'get_browsed_folder_scrollpos');
             OnQueryMain("browser_folders_4", 'get_browsed_folder_selection_index');
             OnQueryMain("browser_folders_5", 'get_browsed_folder_tab');
-
             OnQueryMain("browser_files_1", 'get_browsed_title_artist');
             OnQueryMain("browser_files_2", 'get_browsed_scrollsize');
             OnQueryMain("browser_files_3", 'get_browsed_scrollpos');
             OnQueryMain("browser_files_4", 'get_browsed_selection_index');
-
         }
 
         async function get_data_from_virtualdj() {
-            OnQueryMain("vdj_build", 'get_build');
-
             OnQueryRefresh();
         }
 
