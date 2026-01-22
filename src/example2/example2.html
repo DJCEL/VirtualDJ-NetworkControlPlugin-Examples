@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VirtualDJ - Network Control plugin - Example2</title>
+	 <!-- include the stylesheet files (.css) -->
+    <link rel="stylesheet" href="./style.css" type="text/css">
+	<!-- include the javascript files (.js) -->
+    <script src="vdj_api.js" onerror="alert('vdj_api.js failed to load!')"></script>
+</head>
+<body>
+    <svg style="display:none">
+        <defs>
+            <symbol id="svg_play">
+                <path d="M1,1 L1,14 L12,7.5 L1,1 Z"></path>
+            </symbol>
+            <symbol id="svg_pause">
+                <path d="M1,14 L3.5,14 L3.5,1 L1,1 Z M7.5,1 L7.5,14 L10,14 L10,1 Z"></path>
+            </symbol>
+            <symbol id="svg_minus">
+                <path d="M3.20001 8H12.8" stroke="#F3F3F3" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"></path>
+            </symbol>
+            <symbol id="svg_plus">
+                <path d="M8 3.19995V12.8" stroke="#F3F3F3" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"></path>
+                <path d="M3.20001 8H12.8" stroke="#F3F3F3" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"></path>
+            </symbol>
+            <symbol id="svg_up">
+                <path d="M 1 5 L 5 1 L 9 5" stroke="#F3F3F3" stroke-width="1.2"></path>
+            </symbol>
+            <symbol id="svg_down">
+                <path d="M 1 1 L 5 5 L 9 1" stroke="#F3F3F3" stroke-width="1.2"></path>
+            </symbol>
+        </defs>
+    </svg>
+
+
+    <h1>VirtualDJ - Network Control plugin - Example2</h1>
+
+    <div class="vdj_skin">
+        <div class="vdj_left_deck">
+            Left Deck
+            <br />
+            <br />
+            <iframe class="vdj_result_text" id="left_title" src="about:blank"></iframe>
+            <iframe class="vdj_result_text" id="left_artist" src="about:blank"></iframe>
+            <br />
+            <br />
+            <button class="vdj_button" title="cue_button" onclick="OnExecuteButton('deck left cue_button')">Cue</button>
+            <button class="vdj_button" title="play_button" onclick="OnExecuteButton('deck left play_button')">Play/Pause</button>
+            <button class="vdj_button" title="sync" onclick="OnExecuteButton('deck left sync')">Sync</button>
+            <button class="vdj_button" title="stop" onclick="OnExecuteButton('deck left stop')">Stop</button>
+            <button class="vdj_button" title="unload" onclick="OnExecuteButton('deck left unload')">Unload</button>
+            <button class="vdj_button_svg" title="play" onclick="OnExecuteButton('deck left play')"><svg><use href="#svg_play"></use></svg></button>
+            <button class="vdj_button_svg" title="pause" onclick="OnExecuteButton('deck left pause')"><svg><use href="#svg_pause"></use></svg></button>
+            <button class="vdj_button_svg" title="pitch_bend -2% 500ms" onmousedown="OnExecuteButtonDown('deck left pitch_bend -2% 500ms')"><svg><use href="#svg_minus"></use></svg></button>
+            <button class="vdj_button_svg" title="pitch_bend +2% 500ms" onmousedown="OnExecuteButtonDown('deck left pitch_bend +2% 500ms')"><svg><use href="#svg_plus"></use></svg></button>
+            <button class="vdj_button_svg" title="loop_half" style="height:14px;" onclick="OnExecuteButton('deck left loop_half')"><svg><use href="#svg_up"></use></svg></button>
+            <button class="vdj_button_svg" title="loop_double" style="height:14px;" onclick="OnExecuteButton('deck left loop_double')"><svg><use href="#svg_down"></use></svg></button>
+        </div>
+        <div class="vdj_mixer">
+            Mixer
+            <br />
+            <br />
+            <div class="vdj_left_mixer">
+                <input class="vdj_sliderV" type="range" min="0" max="100" value="100" oninput="OnExecuteSlider(this,'deck left level')">
+            </div>
+            <div class="vdj_bottom_mixer">
+                <input class="vdj_sliderH" type="range" min="0" max="100" value="50" oninput="OnExecuteSlider(this,'crossfader')">
+            </div>
+            <div class="vdj_right_mixer">
+                <input class="vdj_sliderV" type="range" min="0" max="100" value="100" oninput="OnExecuteSlider(this,'deck right level')">
+            </div>
+        </div>
+        <div class="vdj_right_deck">
+            Right Deck
+            <br />
+            <br />
+            <iframe class="vdj_result_text" id="right_title" src="about:blank"></iframe>
+            <iframe class="vdj_result_text" id="right_artist" src="about:blank"></iframe>
+            <br />
+            <br />
+            <button class="vdj_button" title="cue_button" onclick="OnExecuteButton('deck right cue_button')">Cue</button>
+            <button class="vdj_button" title="play_button" onclick="OnExecuteButton('deck right play_button')">Play/Pause</button>
+            <button class="vdj_button" title="sync" onclick="OnExecuteButton('deck right sync')">Sync</button>
+            <button class="vdj_button" title="stop" onclick="OnExecuteButton('deck right stop')">Stop</button>
+            <button class="vdj_button" title="unload" onclick="OnExecuteButton('deck right unload')">Unload</button>
+            <button class="vdj_button_svg" title="play" onclick="OnExecuteButton('deck right play')"><svg><use href="#svg_play"></use></svg></button>
+            <button class="vdj_button_svg" title="pause" onclick="OnExecuteButton('deck right pause')"><svg><use href="#svg_pause"></use></svg></button>
+            <button class="vdj_button_svg" title="pitch_bend -2% 500ms" onmousedown="OnExecuteButtonDown('deck right pitch_bend -2% 500ms')"><svg><use href="#svg_minus"></use></svg></button>
+            <button class="vdj_button_svg" title="pitch_bend +2% 500ms" onmousedown="OnExecuteButtonDown('deck right pitch_bend +2% 500ms')"><svg><use href="#svg_plus"></use></svg></button>
+            <button class="vdj_button_svg" title="loop_half" style="height:14px;" onclick="OnExecuteButton('deck right loop_half')"><svg><use href="#svg_up"></use></svg></button>
+            <button class="vdj_button_svg" title="loop_double" style="height:14px;" onclick="OnExecuteButton('deck right loop_double')"><svg><use href="#svg_down"></use></svg></button>
+        </div>
+    </div>
+
+    <div class="vdj_browser">
+        <div class="vdj_browser_menu1">
+            <button class="vdj_buttonV" onclick="OnExecuteButton('browser_window \'folders\'')">FOLDERS</button>
+            <button class="vdj_buttonV" onclick="OnExecuteButton('browser_window \'songs\'')">SONGS</button>
+        </div>
+        <div class="vdj_browser_menu2">
+            <button class="vdj_buttonV" onclick="OnExecuteButton('browser_scroll -1')">UP</button>
+            <button class="vdj_buttonV" onclick="OnExecuteButton('browser_scroll +1')">DOWN</button>
+            <button class="vdj_buttonV" onclick="OnExecuteButton('browser_scroll \'top\'')">TOP</button>
+            <button class="vdj_buttonV" onclick="OnExecuteButton('browser_scroll \'bottom\'')">END</button>
+        </div>
+        <div class="vdj_browser_left">
+            Browser left
+            <br />
+			<br />
+            <button class="vdj_button" onclick="OnExecuteButton('browser_open_folder')">OPEN/CLOSE</button>
+            <br />
+			<br />
+            <iframe class="vdj_browser_text" id="browser_folders_1" src="about:blank"></iframe>
+            <iframe class="vdj_browser_text" id="browser_folders_2" src="about:blank"></iframe>
+            <iframe class="vdj_browser_text" id="browser_folders_3" src="about:blank"></iframe>
+            <iframe class="vdj_browser_text" id="browser_folders_4" src="about:blank"></iframe>
+            <iframe class="vdj_browser_text" id="browser_folders_5" src="about:blank"></iframe>
+        </div>
+        <div class="vdj_browser_middle">
+            Browser Middle
+            <br />
+			<br />
+            <button class="vdj_button" onclick="OnExecuteButton('deck left load')">LOAD LEFT</button>
+            <button class="vdj_button" onclick="OnExecuteButton('deck right load')">LOAD RIGHT</button>
+            <br />
+			<br />
+            <iframe class="vdj_browser_text" id="browser_files_1" src="about:blank"></iframe>
+            <iframe class="vdj_browser_text" id="browser_files_2" src="about:blank"></iframe>
+            <iframe class="vdj_browser_text" id="browser_files_3" src="about:blank"></iframe>
+            <iframe class="vdj_browser_text" id="browser_files" src="about:blank"></iframe>
+            <iframe class="vdj_browser_text" id="browser_files" src="about:blank"></iframe>
+        </div>
+    </div>
+
+    <div class="vdj_result">
+        VDJresult :
+        <iframe class="vdj_result_text" name="targetExecute" id="resultExecute"></iframe>
+        VDJbuild :
+        <iframe class="vdj_result_text" id="vdj_build" src="about:blank"></iframe>
+    </div
+</body>
+</html>
