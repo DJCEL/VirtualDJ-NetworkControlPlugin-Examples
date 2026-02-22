@@ -31,11 +31,11 @@ function OnQuery(vdjscript) {
 		VDJ API (server)
 ============================================= */
 /*const VDJ = {
-	url_base: "http://127.0.0.1:80",
+	url_virtualdj: "http://127.0.0.1:80",
 	
 	execute(vdjscript) {
 		try {
-			const r = await fetch(`${this.url_base}/execute?script=${encodeURIComponent(vdjscript)}`);
+			const r = await fetch(`${this.url_virtualdj}/execute?script=${encodeURIComponent(vdjscript)}`);
 			return await r.text();
 		}
 		catch {
@@ -46,7 +46,7 @@ function OnQuery(vdjscript) {
 	
 	async query(vdjscript) {
 		try {
-			const r = await fetch(`${this.url_base}/query?script=${encodeURIComponent(vdjscript)}`, {cache: "no-store"});
+			const r = await fetch(`${this.url_virtualdj}/query?script=${encodeURIComponent(vdjscript)}`, {cache: "no-store"});
 			return await r.text();
 		}
 		catch {
