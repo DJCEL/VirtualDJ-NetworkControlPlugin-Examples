@@ -35,8 +35,8 @@ function OnQuery(vdjscript) {
 	
 	execute(vdjscript) {
 		try {
-			const r = await fetch(`${this.url_virtualdj}/execute?script=${encodeURIComponent(vdjscript)}`);
-			return await r.text();
+			const request = await fetch(`${this.url_virtualdj}/execute?script=${encodeURIComponent(vdjscript)}`);
+			return await request.text();
 		}
 		catch {
 			alert("Failed to execute() in VDJ_API");
@@ -46,8 +46,8 @@ function OnQuery(vdjscript) {
 	
 	async query(vdjscript) {
 		try {
-			const r = await fetch(`${this.url_virtualdj}/query?script=${encodeURIComponent(vdjscript)}`, {cache: "no-store"});
-			return await r.text();
+			const request = await fetch(`${this.url_virtualdj}/query?script=${encodeURIComponent(vdjscript)}`, {cache: "no-store"});
+			return await request.text();
 		}
 		catch {
 			alert("Failed to query() in VDJ_API");
