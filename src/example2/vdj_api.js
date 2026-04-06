@@ -1,36 +1,50 @@
-
 /* =============================================
-		VDJ API (local)
+		General
 ============================================= */
-const url_virtualdj = `http://127.0.0.1:80`;
-
-
-function OnExecute(vdjscript) {
-	try {
-		const request = `${url_virtualdj}/execute?script=${encodeURIComponent(vdjscript)}`;
-		return request;
-	}
-	catch {
-		alert("Failed to execute() in VDJ_API");
-		return null;
-	}
-}
-
-function OnQuery(vdjscript) {
-	try {
-		const request = `${url_virtualdj}/query?script=${encodeURIComponent(vdjscript)}`;
-		return request;
-	}
-	catch {
-		alert("Failed to query() in VDJ_API");
-		return null;
+function isLocalHost() {
+	if (window.location.hostname === "" ||
+		window.location.hostname === "localhost" ||
+		window.location.hostname === "127.0.0.1" ||
+		window.location.hostname === "[::1]")
+	{
+		alert("You are on a local server.");
 	}
 }
 
 /* =============================================
-		VDJ API (server)
+		VDJ_API (local)
 ============================================= */
-/*const VDJ = {
+
+const VDJ_API_1 = {
+	url_virtualdj : `http://127.0.0.1:80`,
+
+	OnExecute(vdjscript) {
+		try {
+			const request = `${this.url_virtualdj}/execute?script=${encodeURIComponent(vdjscript)}`;
+			return request;
+		}
+		catch {
+			alert("Failed to execute() in VDJ_API");
+			return null;
+		}
+	},
+
+	OnQuery(vdjscript) {
+		try {
+			const request = `${this.url_virtualdj}/query?script=${encodeURIComponent(vdjscript)}`;
+			return request;
+		}
+		catch {
+			alert("Failed to query() in VDJ_API");
+			return null;
+		}
+	}
+};
+
+/* =============================================
+		VDJ_API (server)
+============================================= */
+/*const VDJ_API_2 = {
 	url_virtualdj: "http://127.0.0.1:80",
 	
 	execute(vdjscript) {
@@ -62,12 +76,12 @@ function OnQuery(vdjscript) {
 ============================================= */
 
 function OnExecuteMain(vdjscript) {
-	const request = OnExecute(vdjscript);
+	const request = VDJ_API_1.OnExecute(vdjscript);
 	document.getElementById("resultExecute").src = request;
 }
 
 function OnQueryMain(Id, vdjscript) {
-	const request = OnQuery(vdjscript);
+	const request = VDJ_API_1.OnQuery(vdjscript);
 	document.getElementById(Id).src = request;
 }
 

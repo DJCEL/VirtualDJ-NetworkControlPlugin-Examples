@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VirtualDJ - Network Control plugin - Example2</title>
-	<!-- include the stylesheet files (.css) -->
+    <!-- include the stylesheet files (.css) -->
     <link rel="stylesheet" href="./style.css" type="text/css">
-	<!-- include the javascript files (.js) -->
+    <!-- include the javascript files (.js) -->
     <script src="vdj_api.js" onerror="alert('vdj_api.js failed to load!')"></script>
 </head>
+<!-- <body onload="isLocalHost()"> -->
 <body>
     <svg style="display:none">
         <defs>
@@ -108,10 +109,10 @@
         <div class="vdj_browser_left">
             Browser left
             <br />
-			<br />
+            <br />
             <button class="vdj_button" onclick="OnExecuteButton('browser_open_folder')">OPEN/CLOSE</button>
             <br />
-			<br />
+            <br />
             <iframe class="vdj_browser_text" id="browser_folders_1" src="about:blank"></iframe>
             <iframe class="vdj_browser_text" id="browser_folders_2" src="about:blank"></iframe>
             <iframe class="vdj_browser_text" id="browser_folders_3" src="about:blank"></iframe>
@@ -121,11 +122,11 @@
         <div class="vdj_browser_middle">
             Browser Middle
             <br />
-			<br />
+            <br />
             <button class="vdj_button" onclick="OnExecuteButton('deck left load')">LOAD LEFT</button>
             <button class="vdj_button" onclick="OnExecuteButton('deck right load')">LOAD RIGHT</button>
             <br />
-			<br />
+            <br />
             <iframe class="vdj_browser_text" id="browser_files_1" src="about:blank"></iframe>
             <iframe class="vdj_browser_text" id="browser_files_2" src="about:blank"></iframe>
             <iframe class="vdj_browser_text" id="browser_files_3" src="about:blank"></iframe>
@@ -139,6 +140,6 @@
         <iframe class="vdj_result_text" name="targetExecute" id="resultExecute"></iframe>
         VDJbuild :
         <iframe class="vdj_result_text" id="vdj_build" src="about:blank"></iframe>
-    </div
+    </div>
 </body>
 </html>
