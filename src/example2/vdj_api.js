@@ -14,7 +14,6 @@ function isLocalHost() {
 /* =============================================
 		VDJ_API (local)
 ============================================= */
-
 const VDJ_API_1 = {
 	url_virtualdj : `http://127.0.0.1:80`,
 
@@ -47,7 +46,7 @@ const VDJ_API_1 = {
 /*const VDJ_API_2 = {
 	url_virtualdj: "http://127.0.0.1:80",
 	
-	execute(vdjscript) {
+	OnExecute(vdjscript) {
 		try {
 			const request = await fetch(`${this.url_virtualdj}/execute?script=${encodeURIComponent(vdjscript)}`);
 			return await request.text();
@@ -58,7 +57,7 @@ const VDJ_API_1 = {
 		}
 	},
 	
-	async query(vdjscript) {
+	async OnQuery(vdjscript) {
 		try {
 			const request = await fetch(`${this.url_virtualdj}/query?script=${encodeURIComponent(vdjscript)}`, {cache: "no-store"});
 			return await request.text();
@@ -72,9 +71,8 @@ const VDJ_API_1 = {
 };
 */
 /* =============================================
-		Executes
+		Executes Main
 ============================================= */
-
 function OnExecuteMain(vdjscript) {
 	const request = VDJ_API_1.OnExecute(vdjscript);
 	document.getElementById("resultExecute").src = request;
@@ -85,6 +83,10 @@ function OnQueryMain(Id, vdjscript) {
 	document.getElementById(Id).src = request;
 }
 
+
+/* =============================================
+		Executes Objects
+============================================= */
 function OnExecuteButton(vdjscript) {
 	OnExecuteMain(vdjscript);
 }
@@ -167,8 +169,8 @@ var myVar2 = setInterval(refreshDecks, 1000);
 /* =============================================
 		SLIDER LIVE (requestAnimationFrame)
 ============================================= */
-/*let SliderValue = null;
-let SliderScript = null
+/*let sliderValue = null;
+let sliderScript = null
 
 function setSlider(el, vdjscript) {
 	sliderValue = (el.value / 100).toFixed(2);
@@ -177,7 +179,8 @@ function setSlider(el, vdjscript) {
 
 function sliderLoop() {
 	if (slider !== null) {
-		VDJ.execute(`${sliderScript} ${sliderValue}`);
+		const vdjscriptSlider = `${sliderScript} ${sliderValue}`;
+		VDJ_API_2.OnExecute(vdjscriptSlider);
 		sliderValue = null;
 	}
 	requestAnimationFrame(sliderLoop);
