@@ -283,7 +283,7 @@ h1 {
 
 /* ==== MOBILE ==== */
 @media (max-width: 900px) {
-	.vdj-skin {
+	.vdj_skin {
 		grid-template-columns: 1fr;
 	}
 }
