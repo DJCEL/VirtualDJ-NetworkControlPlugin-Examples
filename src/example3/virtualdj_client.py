@@ -86,7 +86,7 @@ class VirtualDJClient:
         except httpx.ConnectError:
             return {"status": "error", "result": "HTTP Connection error"}
         except httpx.TimeoutException:
-            return {"status": "error", "error": "HTTP timeout"}
+            return {"status": "error", "result": "HTTP timeout"}
         except Exception as e:
             return {"status": "error", "result": str(e)}
     #------------------------------------------------------------------------------------
