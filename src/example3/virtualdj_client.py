@@ -80,7 +80,9 @@ class VirtualDJClient:
                         status = "error" if bErr else "ok"
                         return {"status": status, "result": result}
                 elif response.status_code == 401:
-                    return {"status": "error", "result": "Authentication failed - check password"}
+                    status = "error"
+                    result = "Authentication failed - check password"
+                    return {"status": status, "result": result}
                 else:
                     status = "error"
                     result = f"HTTP {response.status_code}: {response.text}"
