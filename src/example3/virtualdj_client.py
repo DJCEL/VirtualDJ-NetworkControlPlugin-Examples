@@ -73,12 +73,12 @@ class VirtualDJClient:
                         if (result_len >= 6):
                             ext_result = result[0:6]
                             bErr = (ext_result.lower() == "error:")
-                        st = "error" if bErr else "ok"
-                        return {"status": st, "result": result}
+                        status = "error" if bErr else "ok"
+                        return {"status": status, "result": result}
                     else:
                         bErr = (result.lower() != "true")
-                        st = "error" if bErr else "ok"
-                        return {"status": st, "result": result}
+                        status = "error" if bErr else "ok"
+                        return {"status": status, "result": result}
                 elif response.status_code == 401:
                     return {"status": "error", "result": "Authentication failed - check password"}
                 else:
