@@ -109,7 +109,7 @@ class VirtualDJClient:
     async def queryfull(self, vdj_script: str) -> dict[str, Any]:
         """ Query VirtualDJ with a vdj_script """
         result = await self.query(vdj_script)
-        if result["status"] == "success":
+        if (result.get("status") == "success"):
             result_final = result.get("result", "")
             return result_final
         else:
