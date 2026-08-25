@@ -109,7 +109,8 @@ class VirtualDJClient:
     async def queryfull(self, vdj_script: str) -> dict[str, Any]:
         """ Query VirtualDJ with a vdj_script """
         result = await self.query(vdj_script)
-        if (result.get("status") == "success"):
+        bRes = (result.get("status") == "success")
+        if (bRes == True):
             result_final = result.get("result", "")
             return result_final
         else:
@@ -118,11 +119,12 @@ class VirtualDJClient:
     async def executefull(self, vdj_script: str) -> bool:
         """ Execute a vdj_script and return status """
         result = await self.execute(vdj_script)
-        bRes = result.get("status") == "success" and result.get("result", "").lower() == "true"
-        return bRes
-
-
-    #------------------------------------------------------------------------------------
+        bRes = (result.get("status") == "success")
+        if (bRes == True):
+            bRes2 = (result.get("result", "").lower() == "true")
+            return bRes2
+        else:
+            return False #------------------------------------------------------------------------------------
     #  VirtualDJ queries - specific
     #------------------------------------------------------------------------------------
     async def is_running(self) -> bool:
