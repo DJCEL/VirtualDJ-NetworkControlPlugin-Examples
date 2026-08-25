@@ -143,9 +143,9 @@ class VirtualDJClient:
         result = await self.queryfull(vdj_script)
         return result
     #------------------------------------------------------------------------------------
-    async def get_variable(self, variable: str) -> Any:
+    async def get_variable(self, vdj_variable: str) -> Any:
         """ Get a value of a VirtualDJ variable """
-        vdj_script = f"get_var '{variable}'"
+        vdj_script = f"get_var '{vdj_variable}'"
         result = await self.queryfull(vdj_script)
         return result
 
