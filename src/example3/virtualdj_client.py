@@ -73,11 +73,11 @@ class VirtualDJClient:
                         if (result_len >= 6):
                             ext_result = result[0:6]
                             bErr = (ext_result.lower() == "error:")
-                        st = "error" if bErr else "success"
+                        st = "error" if bErr else "ok"
                         return {"status": st, "result": result}
                     else:
                         bErr = (result.lower() != "true")
-                        st = "error" if bErr else "success"
+                        st = "error" if bErr else "ok"
                         return {"status": st, "result": result}
                 elif response.status_code == 401:
                     return {"status": "error", "result": "Authentication failed - check password"}
@@ -103,13 +103,13 @@ class VirtualDJClient:
     async def querycheck(self, vdj_script: str) -> bool:
         """ Query VirtualDJ with a vdj_script and return status """
         result = await self.query(vdj_script)
-        bRes = (result.get("status") == "success")
+        bRes = (result.get("status") == "ok")
         return bRes
     #------------------------------------------------------------------------------------
     async def queryfull(self, vdj_script: str) -> dict[str, Any]:
         """ Query VirtualDJ with a vdj_script """
         result = await self.query(vdj_script)
-        bRes = (result.get("status") == "success")
+        bRes = (result.get("status") == "ok")
         if (bRes == True):
             result_final = result.get("result", "")
             return result_final
@@ -119,7 +119,7 @@ class VirtualDJClient:
     async def executefull(self, vdj_script: str) -> bool:
         """ Execute a vdj_script and return status """
         result = await self.execute(vdj_script)
-        bRes = (result.get("status") == "success")
+        bRes = (result.get("status") == "ok")
         if (bRes == True):
             bRes2 = (result.get("result", "").lower() == "true")
             return bRes2
