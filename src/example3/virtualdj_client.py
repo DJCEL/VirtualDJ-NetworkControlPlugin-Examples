@@ -82,7 +82,9 @@ class VirtualDJClient:
                 elif response.status_code == 401:
                     return {"status": "error", "result": "Authentication failed - check password"}
                 else:
-                    return {"status": "error", "result": f"HTTP {response.status_code}: {response.text}"}
+                    status = "error"
+                    result = f"HTTP {response.status_code}: {response.text}"
+                    return {"status": status, "result": result}
         except httpx.ConnectError:
             return {"status": "error", "result": "HTTP Connection error"}
         except httpx.TimeoutException:
