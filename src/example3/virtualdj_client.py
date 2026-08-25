@@ -124,7 +124,8 @@ class VirtualDJClient:
             bRes2 = (result.get("result", "").lower() == "true")
             return bRes2
         else:
-            return False #------------------------------------------------------------------------------------
+            return False
+ #------------------------------------------------------------------------------------
     #  VirtualDJ queries - specific
     #------------------------------------------------------------------------------------
     async def is_running(self) -> bool:
