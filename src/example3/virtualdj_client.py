@@ -7,22 +7,9 @@ import psutil
 from urllib.parse import quote as encodeURI
 
 
-# VirtualDJ - Network Control Plugin (HTTP Server)
-VDJ_NETWORK_CONTROL_HOST = "127.0.0.1" # default: "127.0.0.1"
-VDJ_NETWORK_CONTROL_PORT = 80 # default: 80
-VDJ_NETWORK_CONTROL_PASSWORD = None # default None
-VDJ_NETWORK_CONTROL_TIMEOUT = 10.0  # default: 10 seconds
+from config import VDJ_NETWORK_CONTROL_HOST, VDJ_NETWORK_CONTROL_PORT, VDJ_NETWORK_CONTROL_PASSWORD, VDJ_NETWORK_CONTROL_TIMEOUT
+from config import VDJ_PROCESS_NAME 
 
-
-# VirtualDJ - Process name in tasks manager
-VDJ_PROCESS_NAME = "virtualdj"
-
-#------------------------------------------------------------------------------------------------------------------------------------
-def debug_console(msg:str):
-    import sys
-    from rich.console import Console
-    console = Console(file=sys.stderr)
-    console.print(msg)
 #------------------------------------------------------------------------------------------------------------------------------------
 class VDJDeck:
     name : Literal['left', 'right', 'leftvideo', 'rightvideo', 'all', 'default', 'active', 'master']
@@ -52,7 +39,7 @@ class VirtualDJClient:
             headers["Authorization"] = f"Bearer {VDJ_NETWORK_CONTROL_PASSWORD}"
         return headers
     #------------------------------------------------------------------------------------
-    async def _send_http_command(self, vdj_script: str, is_query: bool = False) -> dict[str, Any]:
+    async def _send_vdj_request(self, vdj_script: str, is_query: bool = False) -> dict[str, Any]:
         """ Send command via HTTP Network Control plugin """
         vdj_endpoint = "query" if is_query else "execute"
         headers = self._get_headers()
@@ -60,7 +47,7 @@ class VirtualDJClient:
         encoded_vdjscript = encodeURI(vdj_script)
         vdj_url_full = f"{vdj_url}?script={encoded_vdjscript}"
 
-        # debug_console(f"vdj_url_full: {vdj_url_full}")
+        # print(f"vdj_url_full: {vdj_url_full}")
 
         try:
             async with httpx.AsyncClient(timeout=VDJ_NETWORK_CONTROL_TIMEOUT) as client:
@@ -88,20 +75,26 @@ class VirtualDJClient:
                     result = f"HTTP {response.status_code}: {response.text}"
                     return {"status": status, "result": result}
         except httpx.ConnectError:
-            return {"status": "error", "result": "HTTP Connection error"}
+            status = "error"
+            result = "HTTP Connection error"
+            return {"status": status, "result": result}
         except httpx.TimeoutException:
-            return {"status": "error", "result": "HTTP timeout"}
+            status = "error"
+            result = "HTTP timeout"
+            return {"status": status, "result": result}
         except Exception as e:
-            return {"status": "error", "result": str(e)}
+            status = "error"
+            result = str(e)
+            return {"status": status, "result": result}
     #------------------------------------------------------------------------------------
     async def query(self, vdj_script: str) -> dict[str, Any]:
         """ Query VirtualDJ with a vdj_script """
-        result = await self._send_http_command(vdj_script, is_query=True)
+        result = await self._send_vdj_request(vdj_script, is_query=True)
         return result
     #------------------------------------------------------------------------------------       
     async def execute(self, vdj_script: str) -> dict[str, Any]:
         """ Send command to VirtualDJ with a vdj_script """
-        result = await self._send_http_command(vdj_script)
+        result = await self._send_vdj_request(vdj_script)
         return result
     #------------------------------------------------------------------------------------
     async def querycheck(self, vdj_script: str) -> bool:
@@ -170,7 +163,7 @@ class VirtualDJClient:
         return result
     #------------------------------------------------------------------------------------
     async def play(self, vdj_deck: str) -> bool:
-        """ Play on a deck"""
+        """ Play a deck"""
         vdj_script = f"deck {vdj_deck} play"
         result = await self.executefull(vdj_script)
         return result
@@ -188,7 +181,7 @@ class VirtualDJClient:
         return result
     #------------------------------------------------------------------------------------ 
     async def play_pause(self, vdj_deck: str) -> bool:
-        """ Toggle play & pause on a deck """
+        """ Toggle between play and pause on a deck """
         vdj_script = f"deck {vdj_deck} play_pause"
         result = await self.executefull(vdj_script)
         return result
