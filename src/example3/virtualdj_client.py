@@ -80,15 +80,15 @@ class VirtualDJClient:
                         st = "error" if bErr else "success"
                         return {"status": st, "result": result}
                 elif response.status_code == 401:
-                    return {"status": "error", "error": "Authentication failed - check password"}
+                    return {"status": "error", "result": "Authentication failed - check password"}
                 else:
-                    return {"status": "error", "error": f"HTTP {response.status_code}: {response.text}"}
+                    return {"status": "error", "result": f"HTTP {response.status_code}: {response.text}"}
         except httpx.ConnectError:
-            return {"status": "error", "error": "HTTP error"}
+            return {"status": "error", "result": "HTTP error"}
         except httpx.TimeoutException:
             return {"status": "error", "error": "HTTP timeout"}
         except Exception as e:
-            return {"status": "error", "error": str(e)}
+            return {"status": "error", "result": str(e)}
     #------------------------------------------------------------------------------------
     async def query(self, vdj_script: str) -> dict[str, Any]:
         """ Query VirtualDJ with a vdj_script """
